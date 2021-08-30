@@ -11,10 +11,10 @@ var jump_speed = -200
 
 
 var inventory = {
-	1:{
+	"1":{
 		"Selected" : true,
-		"Item" : "",
-		"Count" : 0
+		"Item" : "pugnale",
+		"Count" : 21
 	}
 }
 
@@ -25,13 +25,39 @@ var body_colliding = false
 
 func _ready():
 	for i in range(2, 9):
-		inventory[i] = {
+		inventory[str(i)] = {
 		"Selected" : false,
 		"Item" : "",
 		"Count" : 0
 	}
 
- 
+func _process(delta):
+	select()
+	for i in inventory:
+		if inventory[i]["Item"] != "":
+			for child in $CanvasLayer/Inventory.get_children():
+				if child.name == i:
+					for c in child.get_children():
+						if c.name == "Sprite":
+							if inventory[i]["Count"] > 0:
+								c.texture = load("res://Assets/" + inventory[i]["Item"] + ".png")
+							else:
+								c.texture = null
+						if c.name == "Count":
+							if inventory[i]["Count"] > 0: 
+								c.text = str(inventory[i]["Count"])
+							else:
+								c.text = ""
+	for i in inventory:
+		if inventory[i]["Selected"]:
+			for child in $CanvasLayer/Inventory.get_children():
+				if child.name == i:
+					for c in child.get_children():
+						if c.name == "Selected":
+							c.visible = true
+
+
+
 func _physics_process(delta):
 	if Input.is_action_just_pressed("LMB"):
 		lancia_pugnale()
@@ -100,20 +126,22 @@ func animation():
 
 
 func lancia_pugnale():
-	var pugnale = load("res://Scenes/Pugnale.tscn").instance()
-	pugnale.position = self.position + $RayCast2D.cast_to.normalized()*3
-	pugnale.apply_impulse(Vector2(), $RayCast2D.cast_to.normalized())
-	if !$Sprite.flip_h:
-		pugnale.linear_velocity.x = 100
-	else:
-		pugnale.linear_velocity.x = -100
-		#individua lo sprite
-		for i in pugnale.get_children():
-			if i.name == "Sprite":
-				#specchia lo sprite
-				i.flip_h = true
-	pugnale.linear_velocity.y = -10
-	get_node("/root/Node").add_child(pugnale)
+	if inventory[inv_selected()]["Count"] > 0:
+		inventory[inv_selected()]["Count"] -= 1
+		var pugnale = load("res://Scenes/Pugnale.tscn").instance()
+		pugnale.position = self.position + $RayCast2D.cast_to.normalized()*3
+		pugnale.apply_impulse(Vector2(), $RayCast2D.cast_to.normalized())
+		if !$Sprite.flip_h:
+			pugnale.linear_velocity.x = 100
+		else:
+			pugnale.linear_velocity.x = -100
+			#individua lo sprite
+			for i in pugnale.get_children():
+				if i.name == "Sprite":
+					#specchia lo sprite
+					i.flip_h = true
+		pugnale.linear_velocity.y = -10
+		get_node("/root/Node").add_child(pugnale)
 
 
 
@@ -137,7 +165,29 @@ func inv_add(item):
 func inv_remove(item):
 	pass
 
+func inv_selected():
+	for i in inventory:
+		if inventory[i]["Selected"] == true:
+			return i
 
+var selected = 1
+func select():
+	if Input.is_action_just_released("RollDown"):
+		if selected == 1:
+			selected = 8
+		else:
+			selected -= 1
+	if Input.is_action_just_released("RollUp"):
+		if selected == 8:
+			selected = 1
+		else:
+			selected += 1
+	for i in inventory:
+		if i == str(selected):
+			inventory[i]["Selected"] = true
+		else:
+			inventory[i]["Selected"] = false
+	
 
 func pickup_item():
 	if body:
@@ -147,7 +197,6 @@ func pickup_item():
 				inv_add("pugnale")
 			else:
 				inv_add(body.name)
-			print(inventory)
 			body = null
 
 func Body_Entered(n_body):

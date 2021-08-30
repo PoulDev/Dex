@@ -14,7 +14,7 @@ var inventory = {
 	"1":{
 		"Selected" : true,
 		"Item" : "pugnale",
-		"Count" : 21
+		"Count" : 25
 	}
 }
 
@@ -33,21 +33,23 @@ func _ready():
 
 func _process(delta):
 	select()
+	#	aggiornamento grafica hotbar
 	for i in inventory:
-		if inventory[i]["Item"] != "":
-			for child in $CanvasLayer/Inventory.get_children():
-				if child.name == i:
-					for c in child.get_children():
-						if c.name == "Sprite":
-							if inventory[i]["Count"] > 0:
-								c.texture = load("res://Assets/" + inventory[i]["Item"] + ".png")
-							else:
-								c.texture = null
-						if c.name == "Count":
-							if inventory[i]["Count"] > 0: 
-								c.text = str(inventory[i]["Count"])
-							else:
-								c.text = ""
+		for child in $CanvasLayer/Inventory.get_children():
+			if child.name == i:
+				for c in child.get_children():
+					if c.name == "Sprite":
+						#se l'item esiste aggiunge la texture
+						if inventory[i]["Count"] > 0:
+							c.texture = load("res://Assets/" + inventory[i]["Item"] + ".png")
+						else: #altrimenti la toglie
+							c.texture = null
+					#aggiorna il numero di item nella hotbar
+					if c.name == "Count":
+						if inventory[i]["Count"] > 0: 
+							c.text = str(inventory[i]["Count"])
+						else:
+							c.text = ""
 	for i in inventory:
 		if inventory[i]["Selected"]:
 			for child in $CanvasLayer/Inventory.get_children():
@@ -109,7 +111,6 @@ func animation():
 	
 	if velocity.y != 0:
 		$WalkParticles.visible = false
-#	print($Particles2D.process_material.scale)
 
 	elif velocity.x > 0:
 		$Sprite.flip_h = false
@@ -128,6 +129,8 @@ func animation():
 func lancia_pugnale():
 	if inventory[inv_selected()]["Count"] > 0:
 		inventory[inv_selected()]["Count"] -= 1
+		if inventory[inv_selected()]["Count"] <= 0:
+			inventory[inv_selected()] = {"Selected" : true,	"Item" : "","Count" : 0}
 		var pugnale = load("res://Scenes/Pugnale.tscn").instance()
 		pugnale.position = self.position + $RayCast2D.cast_to.normalized()*3
 		pugnale.apply_impulse(Vector2(), $RayCast2D.cast_to.normalized())
@@ -142,6 +145,7 @@ func lancia_pugnale():
 					i.flip_h = true
 		pugnale.linear_velocity.y = -10
 		get_node("/root/Node").add_child(pugnale)
+		
 
 
 
@@ -153,14 +157,21 @@ func inv_check(item):
 			return true
 
 func inv_add(item):
-	for i in inventory:
-		if item == inventory[i]["Item"] and inventory[i]["Count"] < 20:
-			inventory[i]["Count"] += 1
+	var trovato = false
+	
+	for inv_item in inventory:
+		if item == inventory[inv_item]["Item"] and inventory[inv_item]["Count"] < 20:
+			inventory[inv_item]["Count"] += 1
+			trovato = true
 			break
-		if inventory[i]["Item"] == "":
-			inventory[i]["Item"] = item
-			inventory[i]["Count"] += 1
-			break
+
+	if not trovato:
+		for inv_item in inventory:
+			if inventory[inv_item]["Item"] == "":
+				inventory[inv_item]["Item"] = item
+				inventory[inv_item]["Count"] += 1
+				break
+
 
 func inv_remove(item):
 	pass

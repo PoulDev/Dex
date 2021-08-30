@@ -1,0 +1,226 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Player/CharacterAnimation.png" type="Texture" id=1]
+[ext_resource path="res://Player/Player.gd" type="Script" id=2]
+[ext_resource path="res://Assets/fire_particle.png" type="Texture" id=3]
+[ext_resource path="res://Assets/pugnale.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Inventory-Cell.png" type="Texture" id=5]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.420245 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=2]
+curve = SubResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 2
+emission_box_extents = Vector3( 1, 1, 1 )
+flag_disable_z = true
+gravity = Vector3( 0, -300, 0 )
+initial_velocity = -1000.0
+initial_velocity_random = 0.1
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 100.0
+scale = 0.7
+scale_random = 1.0
+scale_curve = SubResource( 2 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 5.5, 8 )
+
+[sub_resource type="Animation" id=5]
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2 ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 7, 8, 9, 10, 11 ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.6
+loop = true
+step = 0.15
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15, 0.3, 0.45 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 4, 5, 6 ]
+}
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 6.5, 9 )
+
+[sub_resource type="StyleBoxTexture" id=9]
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 16, 16 )
+
+[node name="Player" type="KinematicBody2D"]
+scale = Vector2( 0.5, 0.5 )
+script = ExtResource( 2 )
+
+[node name="WalkParticles" type="Particles2D" parent="."]
+modulate = Color( 0.117647, 0.0823529, 0.14902, 0.866667 )
+position = Vector2( 0.305046, 7.12891 )
+rotation = 0.335103
+scale = Vector2( 0.02, 0.02 )
+amount = 3
+lifetime = 0.6
+process_material = SubResource( 3 )
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( -0.5, 0 )
+shape = SubResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+hframes = 12
+frame = 7
+
+[node name="Hand" type="Sprite" parent="."]
+position = Vector2( 4, 2 )
+scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Idle = SubResource( 5 )
+anims/Jump = SubResource( 6 )
+anims/Run = SubResource( 7 )
+
+[node name="Hitbox" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( -0.5, 0 )
+shape = SubResource( 8 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( 0, 2 )
+scale = Vector2( 0.3, 0.3 )
+cast_to = Vector2( 20, 0 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Inventory" type="GridContainer" parent="CanvasLayer"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -399.0
+margin_top = -75.0
+margin_right = -25.0
+margin_bottom = -25.0
+columns = 8
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cell1" type="Panel" parent="CanvasLayer/Inventory"]
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+custom_styles/panel = SubResource( 9 )
+
+[node name="Sprite" type="Sprite" parent="CanvasLayer/Inventory/Cell1"]
+position = Vector2( 25, 25 )
+scale = Vector2( 3.15, 3.15 )
+
+[node name="Cell2" type="Panel" parent="CanvasLayer/Inventory"]
+margin_left = 54.0
+margin_right = 104.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+custom_styles/panel = SubResource( 9 )
+
+[node name="Sprite" type="Sprite" parent="CanvasLayer/Inventory/Cell2"]
+position = Vector2( 25, 25 )
+scale = Vector2( 3.15, 3.15 )
+
+[node name="Cell3" type="Panel" parent="CanvasLayer/Inventory"]
+margin_left = 108.0
+margin_right = 158.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+custom_styles/panel = SubResource( 9 )
+
+[node name="Sprite" type="Sprite" parent="CanvasLayer/Inventory/Cell3"]
+position = Vector2( 25, 25 )
+scale = Vector2( 3.15, 3.15 )
+
+[node name="Cell4" type="Panel" parent="CanvasLayer/Inventory"]
+margin_left = 162.0
+margin_right = 212.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+custom_styles/panel = SubResource( 9 )
+
+[node name="Sprite" type="Sprite" parent="CanvasLayer/Inventory/Cell4"]
+position = Vector2( 25, 25 )
+scale = Vector2( 3.15, 3.15 )
+
+[node name="Cell5" type="Panel" parent="CanvasLayer/Inventory"]
+margin_left = 216.0
+margin_right = 266.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+custom_styles/panel = SubResource( 9 )
+
+[node name="Sprite" type="Sprite" parent="CanvasLayer/Inventory/Cell5"]
+position = Vector2( 25, 25 )
+scale = Vector2( 3.15, 3.15 )
+
+[node name="Cell6" type="Panel" parent="CanvasLayer/Inventory"]
+margin_left = 270.0
+margin_right = 320.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+custom_styles/panel = SubResource( 9 )
+
+[node name="Sprite" type="Sprite" parent="CanvasLayer/Inventory/Cell6"]
+position = Vector2( 25, 25 )
+scale = Vector2( 3.15, 3.15 )
+
+[node name="Cell7" type="Panel" parent="CanvasLayer/Inventory"]
+margin_left = 324.0
+margin_right = 374.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+custom_styles/panel = SubResource( 9 )
+
+[node name="Sprite" type="Sprite" parent="CanvasLayer/Inventory/Cell7"]
+position = Vector2( 25, 25 )
+scale = Vector2( 3.15, 3.15 )
+
+[connection signal="body_entered" from="Hitbox" to="." method="Body_Entered"]
+[connection signal="body_exited" from="Hitbox" to="." method="Body_Exited"]

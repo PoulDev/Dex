@@ -15,7 +15,7 @@ scale = Vector2( 0.8, 0.8 )
 [node name="Camera2D" type="Camera2D" parent="Player"]
 scale = Vector2( 2, 2 )
 current = true
-zoom = Vector2( 0.3, 0.3 )
+zoom = Vector2( 0.25, 0.25 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 

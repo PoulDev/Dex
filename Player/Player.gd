@@ -14,7 +14,7 @@ var inventory = {
 	"1":{
 		"Selected" : true,
 		"Item" : "pugnale",
-		"Count" : 25
+		"Count" : 3
 	}
 }
 
@@ -57,7 +57,6 @@ func _process(delta):
 				if child.name == i:
 					for c in child.get_children():
 						if c.name == "Selected":
-							print(c)
 							c.visible = true
 		
 		# deselezziona la casella selezionata in precedenza
@@ -66,16 +65,32 @@ func _process(delta):
 				if child.name == i:
 					for c in child.get_children():
 						if c.name == "Selected":
-							print(c)
 							c.visible = false
 
 
 
 func _physics_process(delta):
-	if Input.is_action_just_pressed("LMB"):
+	var item_selected
+	for i in inventory:
+		if inventory[i]["Selected"]:
+			item_selected = inventory[i]["Item"]
+	if item_selected != "":
+		$Hand.texture = load("res://Assets/" + item_selected + ".png")
+	else:
+		$Hand.texture = null
+	if Input.is_action_just_pressed("RMB"):
 		lancia_pugnale()
-	pickup_item()
 	
+	if Input.is_action_just_pressed("LMB") and item_selected == "pugnale":
+		if $Hand.flip_h:
+			$Hand/AnimationPlayer.play("Melee-left")
+		else:
+			$Hand/AnimationPlayer.play("Melee-right")
+	
+	pickup_item()
+	for i in inventory:
+		if inventory[i]["Selected"]:
+			drop_item(i)
 	
 	animation()
 	get_inputs()
@@ -183,14 +198,11 @@ func inv_add(item):
 				inventory[inv_item]["Count"] += 1
 				break
 
-
-func inv_remove(item):
-	pass
-
 func inv_selected():
 	for i in inventory:
 		if inventory[i]["Selected"] == true:
 			return i
+
 
 var selected = 1
 func select():
@@ -220,6 +232,28 @@ func pickup_item():
 			else:
 				inv_add(body.name)
 			body = null
+
+
+func drop_item(item):
+	if Input.is_action_just_pressed("Drop") and inventory[item]["Count"] > 0:
+		inventory[item]["Count"] -= 1
+		var drop = load("res://Scenes/" + inventory[item]["Item"] + ".tscn").instance()
+		drop.position = self.position + $RayCast2D.cast_to.normalized()*3
+		drop.apply_impulse(Vector2(), $RayCast2D.cast_to.normalized())
+		if !$Sprite.flip_h:
+			drop.linear_velocity.x = 20
+		else:
+			drop.linear_velocity.x = -20
+			#individua lo sprite
+			for i in drop.get_children():
+				if i.name == "Sprite":
+					#specchia lo sprite
+					i.flip_h = true
+		drop.linear_velocity.y = -10
+		get_node("/root/Node").add_child(drop)
+		
+
+
 
 func Body_Entered(n_body):
 	body_colliding = true

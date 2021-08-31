@@ -1,9 +1,8 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Player/CharacterAnimation.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
 [ext_resource path="res://Assets/fire_particle.png" type="Texture" id=3]
-[ext_resource path="res://Assets/pugnale.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Inventory-Cell.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Fonts/I-pixel-u.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://Assets/Inventory-Cell-selected..png" type="Texture" id=7]
@@ -32,6 +31,113 @@ scale_curve = SubResource( 2 )
 extents = Vector2( 5.5, 8 )
 
 [sub_resource type="Animation" id=5]
+resource_name = "Melee-left"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -15.0, 15.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -4, 2 ), Vector2( -7, 2 ), Vector2( -4, 2 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../Melee-Attack/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.0294959, 0.1, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../Melee-Attack/CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -8, 1 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "Melee-right"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -15.0, 15.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 4, 2 ), Vector2( 7, 2 ), Vector2( 4, 2 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../Melee-Attack/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.0294959, 0.1, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../Melee-Attack/CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 8, 1 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 3.90215, 6.54416 )
+
+[sub_resource type="Animation" id=8]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -47,7 +153,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=9]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -62,7 +168,7 @@ tracks/0/keys = {
 "values": [ 7, 8, 9, 10, 11 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=10]
 length = 0.6
 loop = true
 step = 0.15
@@ -79,14 +185,14 @@ tracks/0/keys = {
 "values": [ 3, 4, 5, 6 ]
 }
 
-[sub_resource type="RectangleShape2D" id=8]
+[sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 6.5, 9 )
 
-[sub_resource type="StyleBoxTexture" id=9]
+[sub_resource type="StyleBoxTexture" id=12]
 texture = ExtResource( 5 )
 region_rect = Rect2( 0, 0, 16, 16 )
 
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="DynamicFont" id=13]
 font_data = ExtResource( 6 )
 
 [node name="Player" type="KinematicBody2D"]
@@ -115,22 +221,34 @@ frame = 7
 
 [node name="Hand" type="Sprite" parent="."]
 position = Vector2( 4, 2 )
+rotation = 0.0654499
 scale = Vector2( 0.6, 0.6 )
-texture = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Hand"]
+anims/Melee-left = SubResource( 5 )
+anims/Melee-right = SubResource( 6 )
+
+[node name="Melee-Attack" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Melee-Attack"]
+position = Vector2( 8, 1 )
+shape = SubResource( 7 )
+disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Idle = SubResource( 5 )
-anims/Jump = SubResource( 6 )
-anims/Run = SubResource( 7 )
+anims/Idle = SubResource( 8 )
+anims/Jump = SubResource( 9 )
+anims/Run = SubResource( 10 )
 
 [node name="Hitbox" type="Area2D" parent="."]
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2( -0.5, 0 )
-shape = SubResource( 8 )
+shape = SubResource( 11 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
+visible = false
 position = Vector2( 0, 2 )
 scale = Vector2( 0.3, 0.3 )
 cast_to = Vector2( 20, 0 )
@@ -155,7 +273,7 @@ __meta__ = {
 margin_right = 50.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 9 )
+custom_styles/panel = SubResource( 12 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/1"]
 visible = false
@@ -171,7 +289,7 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 13 )
 align = 2
 valign = 1
 __meta__ = {
@@ -183,7 +301,7 @@ margin_left = 54.0
 margin_right = 104.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 9 )
+custom_styles/panel = SubResource( 12 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/2"]
 visible = false
@@ -199,7 +317,7 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 13 )
 align = 2
 valign = 1
 __meta__ = {
@@ -211,7 +329,7 @@ margin_left = 108.0
 margin_right = 158.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 9 )
+custom_styles/panel = SubResource( 12 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/3"]
 visible = false
@@ -227,7 +345,7 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 13 )
 align = 2
 valign = 1
 __meta__ = {
@@ -239,7 +357,7 @@ margin_left = 162.0
 margin_right = 212.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 9 )
+custom_styles/panel = SubResource( 12 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/4"]
 visible = false
@@ -255,7 +373,7 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 13 )
 align = 2
 valign = 1
 __meta__ = {
@@ -267,7 +385,7 @@ margin_left = 216.0
 margin_right = 266.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 9 )
+custom_styles/panel = SubResource( 12 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/5"]
 visible = false
@@ -283,7 +401,7 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 13 )
 align = 2
 valign = 1
 __meta__ = {
@@ -295,7 +413,7 @@ margin_left = 270.0
 margin_right = 320.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 9 )
+custom_styles/panel = SubResource( 12 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/6"]
 visible = false
@@ -311,7 +429,7 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 13 )
 align = 2
 valign = 1
 __meta__ = {
@@ -323,7 +441,7 @@ margin_left = 324.0
 margin_right = 374.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 9 )
+custom_styles/panel = SubResource( 12 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/7"]
 visible = false
@@ -339,7 +457,7 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 13 )
 align = 2
 valign = 1
 __meta__ = {
@@ -351,7 +469,7 @@ margin_left = 378.0
 margin_right = 428.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 9 )
+custom_styles/panel = SubResource( 12 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/8"]
 visible = false
@@ -367,7 +485,7 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 13 )
 align = 2
 valign = 1
 __meta__ = {

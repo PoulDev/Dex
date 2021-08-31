@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Player/CharacterAnimation.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
 [ext_resource path="res://Assets/fire_particle.png" type="Texture" id=3]
+[ext_resource path="res://Assets/pugnale.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Inventory-Cell.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Fonts/I-pixel-u.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://Assets/Inventory-Cell-selected..png" type="Texture" id=7]
@@ -134,10 +135,26 @@ tracks/3/keys = {
 "values": [ Vector2( 8, 1 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="Animation" id=7]
+resource_name = "trick"
+length = 1.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.4, 0.9, 1, 1.2, 1.21 ),
+"transitions": PoolRealArray( 1, 1.93187, 2.73208, 0.466516, 1, 1, 1, 1e-05 ),
+"update": 0,
+"values": [ 0.0, 50.0, 50.0, 0.0, -1100.0, -1100.0, -1080.0, 0.0 ]
+}
+
+[sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 3.90215, 6.54416 )
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -153,7 +170,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -168,7 +185,7 @@ tracks/0/keys = {
 "values": [ 7, 8, 9, 10, 11 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=11]
 length = 0.6
 loop = true
 step = 0.15
@@ -185,18 +202,27 @@ tracks/0/keys = {
 "values": [ 3, 4, 5, 6 ]
 }
 
-[sub_resource type="RectangleShape2D" id=11]
+[sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 6.5, 9 )
 
-[sub_resource type="StyleBoxTexture" id=12]
+[sub_resource type="StyleBoxTexture" id=13]
 texture = ExtResource( 5 )
 region_rect = Rect2( 0, 0, 16, 16 )
 
-[sub_resource type="DynamicFont" id=13]
+[sub_resource type="DynamicFont" id=14]
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=15]
+size = 32
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=16]
+size = 32
 font_data = ExtResource( 6 )
 
 [node name="Player" type="KinematicBody2D"]
-scale = Vector2( 0.5, 0.5 )
+position = Vector2( 37.4178, 76.6173 )
+scale = Vector2( 0.0942503, 0.0832128 )
 script = ExtResource( 2 )
 
 [node name="WalkParticles" type="Particles2D" parent="."]
@@ -221,31 +247,32 @@ frame = 7
 
 [node name="Hand" type="Sprite" parent="."]
 position = Vector2( 4, 2 )
-rotation = 0.0654499
 scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Hand"]
 anims/Melee-left = SubResource( 5 )
 anims/Melee-right = SubResource( 6 )
+anims/trick = SubResource( 7 )
 
 [node name="Melee-Attack" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Melee-Attack"]
 position = Vector2( 8, 1 )
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Idle = SubResource( 8 )
-anims/Jump = SubResource( 9 )
-anims/Run = SubResource( 10 )
+anims/Idle = SubResource( 9 )
+anims/Jump = SubResource( 10 )
+anims/Run = SubResource( 11 )
 
 [node name="Hitbox" type="Area2D" parent="."]
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2( -0.5, 0 )
-shape = SubResource( 11 )
+shape = SubResource( 12 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 visible = false
@@ -257,13 +284,11 @@ cast_to = Vector2( 20, 0 )
 
 [node name="Inventory" type="GridContainer" parent="CanvasLayer"]
 anchor_left = 1.0
-anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -449.0
-margin_top = -75.0
-margin_right = -21.0
-margin_bottom = -25.0
+margin_left = -345.0
+margin_top = 25.0
+margin_right = -25.0
+margin_bottom = 75.0
 columns = 8
 __meta__ = {
 "_edit_use_anchors_": false
@@ -273,7 +298,7 @@ __meta__ = {
 margin_right = 50.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 12 )
+custom_styles/panel = SubResource( 13 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/1"]
 visible = false
@@ -289,7 +314,7 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 13 )
+custom_fonts/font = SubResource( 14 )
 align = 2
 valign = 1
 __meta__ = {
@@ -301,7 +326,7 @@ margin_left = 54.0
 margin_right = 104.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 12 )
+custom_styles/panel = SubResource( 13 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/2"]
 visible = false
@@ -317,7 +342,7 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 13 )
+custom_fonts/font = SubResource( 14 )
 align = 2
 valign = 1
 __meta__ = {
@@ -329,7 +354,7 @@ margin_left = 108.0
 margin_right = 158.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 12 )
+custom_styles/panel = SubResource( 13 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/3"]
 visible = false
@@ -345,7 +370,7 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 13 )
+custom_fonts/font = SubResource( 14 )
 align = 2
 valign = 1
 __meta__ = {
@@ -357,7 +382,7 @@ margin_left = 162.0
 margin_right = 212.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 12 )
+custom_styles/panel = SubResource( 13 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/4"]
 visible = false
@@ -373,7 +398,7 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 13 )
+custom_fonts/font = SubResource( 14 )
 align = 2
 valign = 1
 __meta__ = {
@@ -385,7 +410,7 @@ margin_left = 216.0
 margin_right = 266.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 12 )
+custom_styles/panel = SubResource( 13 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/5"]
 visible = false
@@ -401,7 +426,7 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 13 )
+custom_fonts/font = SubResource( 14 )
 align = 2
 valign = 1
 __meta__ = {
@@ -413,7 +438,7 @@ margin_left = 270.0
 margin_right = 320.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 12 )
+custom_styles/panel = SubResource( 13 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/6"]
 visible = false
@@ -429,68 +454,36 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 13 )
+custom_fonts/font = SubResource( 14 )
 align = 2
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="7" type="Panel" parent="CanvasLayer/Inventory"]
-margin_left = 324.0
-margin_right = 374.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 12 )
-
-[node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/7"]
-visible = false
-position = Vector2( 25, 25 )
-scale = Vector2( 3.15, 3.15 )
-texture = ExtResource( 7 )
-
-[node name="Sprite" type="Sprite" parent="CanvasLayer/Inventory/7"]
-position = Vector2( 25, 25 )
-scale = Vector2( 3.15, 3.15 )
-
-[node name="Count" type="Label" parent="CanvasLayer/Inventory/7"]
-margin_top = 30.0
-margin_right = 50.0
-margin_bottom = 50.0
-custom_fonts/font = SubResource( 13 )
-align = 2
-valign = 1
+[node name="label-test" type="Label" parent="CanvasLayer"]
+margin_left = 77.6952
+margin_top = 495.989
+margin_right = 137.695
+margin_bottom = 535.989
+custom_fonts/font = SubResource( 15 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="8" type="Panel" parent="CanvasLayer/Inventory"]
-margin_left = 378.0
-margin_right = 428.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 12 )
+[node name="Timer" type="Timer" parent="CanvasLayer/label-test"]
+wait_time = 0.075
+autostart = true
 
-[node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/8"]
-visible = false
-position = Vector2( 25, 25 )
-scale = Vector2( 3.15, 3.15 )
-texture = ExtResource( 7 )
-
-[node name="Sprite" type="Sprite" parent="CanvasLayer/Inventory/8"]
-position = Vector2( 25, 25 )
-scale = Vector2( 3.15, 3.15 )
-
-[node name="Count" type="Label" parent="CanvasLayer/Inventory/8"]
-margin_top = 30.0
-margin_right = 50.0
-margin_bottom = 50.0
-custom_fonts/font = SubResource( 13 )
-align = 2
-valign = 1
+[node name="infos" type="Label" parent="CanvasLayer"]
+margin_left = 25.0
+margin_right = 40.0
+margin_bottom = 65.0
+custom_fonts/font = SubResource( 16 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [connection signal="body_entered" from="Hitbox" to="." method="Body_Entered"]
 [connection signal="body_exited" from="Hitbox" to="." method="Body_Exited"]
+[connection signal="timeout" from="CanvasLayer/label-test/Timer" to="." method="TextTimeout"]

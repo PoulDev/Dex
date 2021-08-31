@@ -9,13 +9,22 @@ var MAX_SPEED = 80
 var GRAVITY = 10
 var jump_speed = -200
 
+var stamina = 100
+var vita = 5
+var rallentamento = 1 #false
 
 var inventory = {
 	"1":{
 		"Selected" : true,
 		"Item" : "pugnale",
 		"Count" : 3
+	},
+	"2":{
+		"Selected" : false,
+		"Item" : "cocco",
+		"Count" : 3
 	}
+	
 }
 
 
@@ -24,12 +33,24 @@ var body
 var body_colliding = false
 
 func _ready():
-	for i in range(2, 9):
+	for i in range(3, 7):
 		inventory[str(i)] = {
 		"Selected" : false,
 		"Item" : "",
 		"Count" : 0
 	}
+	
+	# test chat con npc: #ho capito perchè
+	$"CanvasLayer/label-test/Timer".start()
+	
+
+var text = "ehy ciao come va?"
+var current_text_num = 0
+func TextTimeout():
+	$"CanvasLayer/label-test".text += text[current_text_num]
+	current_text_num += 1
+	if current_text_num >= len(text):
+		$"CanvasLayer/label-test/Timer".stop()
 
 func _process(delta):
 	select()
@@ -67,6 +88,8 @@ func _process(delta):
 						if c.name == "Selected":
 							c.visible = false
 
+		# testo aggiornamento stamina e vita
+		$CanvasLayer/infos.text = "stamina: " + str(int(stamina)) + " vita: " + str(vita)
 
 
 func _physics_process(delta):
@@ -78,10 +101,12 @@ func _physics_process(delta):
 		$Hand.texture = load("res://Assets/" + item_selected + ".png")
 	else:
 		$Hand.texture = null
-	if Input.is_action_just_pressed("RMB"):
+	if Input.is_action_just_pressed("RMB") and item_selected == "pugnale":
+		stamina -= 1
 		lancia_pugnale()
 	
 	if Input.is_action_just_pressed("LMB") and item_selected == "pugnale":
+		stamina -= 1
 		if $Hand.flip_h:
 			$Hand/AnimationPlayer.play("Melee-left")
 		else:
@@ -107,10 +132,23 @@ func _physics_process(delta):
 
 
 func get_inputs():
-	target_speed = (Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")) * MAX_SPEED
+	if stamina <= 0:
+		rallentamento = 2
+		stamina = 0
+	else:
+		rallentamento = 1
 	
-	if Input.is_action_pressed("ui_up") and is_on_floor():
+	target_speed = (Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")) * ( MAX_SPEED / rallentamento )
+	
+	if int(target_speed) != 0:
+		stamina -= 0.03
+	
+	if Input.is_action_pressed("ui_up") and is_on_floor() and stamina > 0:
 		velocity.y = jump_speed
+		stamina -= 1
+
+	if Input.is_action_pressed("item_roll"):
+		$Hand/AnimationPlayer.play("trick")
 
 func animation():
 	if velocity.x < 0:
@@ -161,9 +199,9 @@ func lancia_pugnale():
 		pugnale.position = self.position + $RayCast2D.cast_to.normalized()*3
 		pugnale.apply_impulse(Vector2(), $RayCast2D.cast_to.normalized())
 		if !$Sprite.flip_h:
-			pugnale.linear_velocity.x = 100
+			pugnale.linear_velocity.x = 130
 		else:
-			pugnale.linear_velocity.x = -100
+			pugnale.linear_velocity.x = -130
 			#individua lo sprite
 			for i in pugnale.get_children():
 				if i.name == "Sprite":
@@ -208,11 +246,11 @@ var selected = 1
 func select():
 	if Input.is_action_just_released("RollUp"):
 		if selected == 1:
-			selected = 8
+			selected = 6
 		else:
 			selected -= 1
 	if Input.is_action_just_released("RollDown"):
-		if selected == 8:
+		if selected == 6:
 			selected = 1
 		else:
 			selected += 1
@@ -261,3 +299,6 @@ func Body_Entered(n_body):
 
 func Body_Exited(body):
 	body_colliding = false
+
+
+

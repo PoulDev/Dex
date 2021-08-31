@@ -9,7 +9,7 @@
 [ext_resource path="res://Assets/Inventory-Cell-selected..png" type="Texture" id=7]
 
 [sub_resource type="Curve" id=1]
-_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.420245 ), 0.0, 0.0, 0, 0 ]
+_data = [ Vector2( 0.887234, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.420245 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=2]
 curve = SubResource( 1 )
@@ -18,7 +18,7 @@ curve = SubResource( 1 )
 emission_shape = 2
 emission_box_extents = Vector3( 1, 1, 1 )
 flag_disable_z = true
-gravity = Vector3( 0, -300, 0 )
+gravity = Vector3( 0, 300, 0 )
 initial_velocity = -1000.0
 initial_velocity_random = 0.1
 orbit_velocity = 0.0
@@ -96,8 +96,8 @@ script = ExtResource( 2 )
 [node name="WalkParticles" type="Particles2D" parent="."]
 modulate = Color( 0.117647, 0.0823529, 0.14902, 0.866667 )
 position = Vector2( 0.305046, 7.12891 )
-rotation = 0.335103
-scale = Vector2( 0.02, 0.02 )
+rotation = -2.80649
+scale = Vector2( 0.03, 0.03 )
 amount = 3
 lifetime = 0.6
 process_material = SubResource( 3 )

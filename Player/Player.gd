@@ -51,12 +51,23 @@ func _process(delta):
 						else:
 							c.text = ""
 	for i in inventory:
+		# aggiorna casella selezionata
 		if inventory[i]["Selected"]:
 			for child in $CanvasLayer/Inventory.get_children():
 				if child.name == i:
 					for c in child.get_children():
 						if c.name == "Selected":
+							print(c)
 							c.visible = true
+		
+		# deselezziona la casella selezionata in precedenza
+		if not inventory[i]["Selected"]:
+			for child in $CanvasLayer/Inventory.get_children():
+				if child.name == i:
+					for c in child.get_children():
+						if c.name == "Selected":
+							print(c)
+							c.visible = false
 
 
 
@@ -183,12 +194,12 @@ func inv_selected():
 
 var selected = 1
 func select():
-	if Input.is_action_just_released("RollDown"):
+	if Input.is_action_just_released("RollUp"):
 		if selected == 1:
 			selected = 8
 		else:
 			selected -= 1
-	if Input.is_action_just_released("RollUp"):
+	if Input.is_action_just_released("RollDown"):
 		if selected == 8:
 			selected = 1
 		else:

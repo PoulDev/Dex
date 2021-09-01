@@ -335,6 +335,7 @@ func select():
 func pickup_item():
 	if body:
 		if Input.is_action_just_pressed("Pick") and body.is_in_group("Drop") and inv_check(body.name):
+			
 			body.queue_free()
 			if "pugnale" in body.name:
 				inv_add("pugnale")

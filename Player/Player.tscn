@@ -258,7 +258,7 @@ tracks/0/keys = {
 "values": [ 3, 4, 5, 6 ]
 }
 
-[sub_resource type="Animation" id=18]
+[sub_resource type="Animation" id=14]
 resource_name = "WallJump"
 length = 0.1
 tracks/0/type = "value"
@@ -274,17 +274,17 @@ tracks/0/keys = {
 "values": [ 8 ]
 }
 
-[sub_resource type="RectangleShape2D" id=14]
+[sub_resource type="RectangleShape2D" id=15]
 extents = Vector2( 8.5, 11 )
 
-[sub_resource type="StyleBoxTexture" id=15]
+[sub_resource type="StyleBoxTexture" id=16]
 texture = ExtResource( 5 )
 region_rect = Rect2( 0, 0, 16, 16 )
 
-[sub_resource type="DynamicFont" id=16]
+[sub_resource type="DynamicFont" id=17]
 font_data = ExtResource( 6 )
 
-[sub_resource type="DynamicFont" id=17]
+[sub_resource type="DynamicFont" id=18]
 size = 32
 font_data = ExtResource( 6 )
 
@@ -293,12 +293,10 @@ scale = Vector2( 0.1, 0.1 )
 script = ExtResource( 2 )
 
 [node name="Sinistra" type="RayCast2D" parent="."]
-scale = Vector2( 1, 1 )
 enabled = true
 cast_to = Vector2( 10, 0 )
 
 [node name="Destra" type="RayCast2D" parent="."]
-scale = Vector2( 1, 1 )
 enabled = true
 cast_to = Vector2( -10, 0 )
 
@@ -345,12 +343,12 @@ disabled = true
 anims/Idle = SubResource( 11 )
 anims/Jump = SubResource( 12 )
 anims/Run = SubResource( 13 )
-anims/WallJump = SubResource( 18 )
+anims/WallJump = SubResource( 14 )
 
 [node name="PickUp" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickUp"]
-shape = SubResource( 14 )
+shape = SubResource( 15 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 visible = false
@@ -377,7 +375,7 @@ __meta__ = {
 margin_right = 50.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 15 )
+custom_styles/panel = SubResource( 16 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/1"]
 visible = false
@@ -393,7 +391,7 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 16 )
+custom_fonts/font = SubResource( 17 )
 align = 2
 valign = 1
 __meta__ = {
@@ -405,7 +403,7 @@ margin_left = 54.0
 margin_right = 104.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 15 )
+custom_styles/panel = SubResource( 16 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/2"]
 visible = false
@@ -421,7 +419,7 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 16 )
+custom_fonts/font = SubResource( 17 )
 align = 2
 valign = 1
 __meta__ = {
@@ -433,7 +431,7 @@ margin_left = 108.0
 margin_right = 158.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 15 )
+custom_styles/panel = SubResource( 16 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/3"]
 visible = false
@@ -449,7 +447,7 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 16 )
+custom_fonts/font = SubResource( 17 )
 align = 2
 valign = 1
 __meta__ = {
@@ -461,7 +459,7 @@ margin_left = 162.0
 margin_right = 212.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 15 )
+custom_styles/panel = SubResource( 16 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/4"]
 visible = false
@@ -477,7 +475,7 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 16 )
+custom_fonts/font = SubResource( 17 )
 align = 2
 valign = 1
 __meta__ = {
@@ -489,7 +487,7 @@ margin_left = 216.0
 margin_right = 266.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 15 )
+custom_styles/panel = SubResource( 16 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/5"]
 visible = false
@@ -505,7 +503,7 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 16 )
+custom_fonts/font = SubResource( 17 )
 align = 2
 valign = 1
 __meta__ = {
@@ -517,7 +515,7 @@ margin_left = 270.0
 margin_right = 320.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 15 )
+custom_styles/panel = SubResource( 16 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/6"]
 visible = false
@@ -533,7 +531,7 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 16 )
+custom_fonts/font = SubResource( 17 )
 align = 2
 valign = 1
 __meta__ = {
@@ -544,7 +542,7 @@ __meta__ = {
 margin_left = 25.0
 margin_right = 40.0
 margin_bottom = 65.0
-custom_fonts/font = SubResource( 17 )
+custom_fonts/font = SubResource( 18 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

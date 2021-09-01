@@ -11,6 +11,7 @@ var jump_speed = -200
 var WallJump = 200
 var JumpWall = 10
 
+
 var stamina = 100
 var vita = 5
 var rallentamento = 1 #false
@@ -100,13 +101,13 @@ func _physics_process(delta):
 		$Hand.texture = null
 	
 	if Input.is_action_just_pressed("RMB"):
-		if item_selected == "pugnale":
+		if item_selected == "pugnale" and stamina > 3:
 			lancia_pugnale()
 			stamina -= 3
 	
 	
 	if Input.is_action_just_pressed("LMB"):
-		if item_selected == "pugnale":
+		if item_selected == "pugnale" and stamina > 3:
 			stamina -= 3
 			if $Hand.flip_h:
 				$Hand/AnimationPlayer.play("Melee-left")
@@ -118,6 +119,8 @@ func _physics_process(delta):
 			for i in inventory:
 				if inventory[i]["Item"] == item_selected:
 					inventory[i]["Count"] -= 1
+					if inventory[i]["Count"] <= 0:
+						inventory[i]["Item"] = ""
 	
 	pickup_item()
 	for i in inventory:
@@ -156,17 +159,17 @@ func get_inputs():
 		$AnimationPlayer.play("Jump")
 		velocity.y = jump_speed
 		stamina -= 1
-	if Input.is_action_just_pressed("ui_up"):
+	if Input.is_action_just_pressed("ui_up") and stamina > 1:
 		$AnimationPlayer.play("Jump")
 		if nextToWall():
-			stamina -= 3
+			stamina -= 1
 			velocity.y = jump_speed
 			if not is_on_floor() and nextToRightWall():
-				velocity.x -= WallJump
+				velocity.x += WallJump
 				velocity.y -= JumpWall
 			
 			if not is_on_floor() and nextToLeftWall():
-				velocity.x = WallJump
+				velocity.x -= WallJump
 				velocity.y -= JumpWall
 
 

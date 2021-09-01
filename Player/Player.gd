@@ -99,7 +99,7 @@ func _physics_process(delta):
 		$Hand.texture = load("res://Assets/" + item_selected + ".png")
 	else:
 		$Hand.texture = null
-	
+
 	if Input.is_action_just_pressed("RMB"):
 		if item_selected == "pugnale" and stamina > 3:
 			lancia_pugnale()
@@ -153,7 +153,7 @@ func get_inputs():
 	target_speed = (Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")) * ( MAX_SPEED / rallentamento )
 	
 	if int(target_speed) != 0:
-		stamina -= 0.005
+		stamina -= 0.008
 	
 	if Input.is_action_pressed("ui_up") and is_on_floor() and stamina > 1:
 		$AnimationPlayer.play("Jump")
@@ -334,6 +334,10 @@ func select():
 
 func pickup_item():
 	if body:
+		if "cartello" in body.name:
+			$CanvasLayer/chat_text.text = body.editor_description
+		else:
+			$CanvasLayer/chat_text.visible = false
 		if Input.is_action_just_pressed("Pick") and body.is_in_group("Drop") and inv_check(body.name):
 			
 			body.queue_free()
@@ -369,7 +373,10 @@ func drop_item(item):
 func PickUp_Body_Entered(n_body):
 	body_colliding = true
 	body = n_body
+	$CanvasLayer/chat_text.visible = true
 
 
 func PickUp_Body_Exited(body):
 	body_colliding = false
+	$CanvasLayer/chat_text.visible = false
+	

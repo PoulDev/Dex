@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Player/CharacterAnimation.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
@@ -288,6 +288,10 @@ font_data = ExtResource( 6 )
 size = 32
 font_data = ExtResource( 6 )
 
+[sub_resource type="DynamicFont" id=19]
+size = 55
+font_data = ExtResource( 6 )
+
 [node name="Player" type="KinematicBody2D"]
 scale = Vector2( 0.1, 0.1 )
 script = ExtResource( 2 )
@@ -543,6 +547,20 @@ margin_left = 25.0
 margin_right = 40.0
 margin_bottom = 65.0
 custom_fonts/font = SubResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="chat_text" type="Label" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -378.0
+margin_top = -269.0
+margin_right = 378.0
+custom_fonts/font = SubResource( 19 )
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -8,6 +8,8 @@ var target_speed = 0
 var MAX_SPEED = 80
 var GRAVITY = 10
 var jump_speed = -200
+var WallJump = 200
+var JumpWall = 10
 
 var stamina = 100
 var vita = 5
@@ -44,17 +46,7 @@ func _ready():
 		"Count" : 0
 	}
 	
-	# test chat con npc: #ho capito perchè
-	$"CanvasLayer/label-test/Timer".start()
-	
 
-var text = "ehy ciao come va?"
-var current_text_num = 0
-func TextTimeout():
-	$"CanvasLayer/label-test".text += text[current_text_num]
-	current_text_num += 1
-	if current_text_num >= len(text):
-		$"CanvasLayer/label-test/Timer".stop()
 
 func _process(delta):
 	select()
@@ -101,25 +93,31 @@ func _physics_process(delta):
 	for i in inventory:
 		if inventory[i]["Selected"]:
 			item_selected = inventory[i]["Item"]
+	
 	if item_selected != "":
 		$Hand.texture = load("res://Assets/" + item_selected + ".png")
 	else:
 		$Hand.texture = null
+	
 	if Input.is_action_just_pressed("RMB"):
 		if item_selected == "pugnale":
 			lancia_pugnale()
-			stamina -= 1
+			stamina -= 3
 	
 	
 	if Input.is_action_just_pressed("LMB"):
 		if item_selected == "pugnale":
-			stamina -= 1
+			stamina -= 3
 			if $Hand.flip_h:
 				$Hand/AnimationPlayer.play("Melee-left")
 			else:
 				$Hand/AnimationPlayer.play("Melee-right")
+		
 		elif item_selected in cibi:
 			stamina += cibi[item_selected]["stamina"]
+			for i in inventory:
+				if inventory[i]["Item"] == item_selected:
+					inventory[i]["Count"] -= 1
 	
 	pickup_item()
 	for i in inventory:
@@ -152,11 +150,45 @@ func get_inputs():
 	target_speed = (Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")) * ( MAX_SPEED / rallentamento )
 	
 	if int(target_speed) != 0:
-		stamina -= 0.03
+		stamina -= 0.005
 	
 	if Input.is_action_pressed("ui_up") and is_on_floor() and stamina > 1:
+		$AnimationPlayer.play("Jump")
 		velocity.y = jump_speed
 		stamina -= 1
+	if Input.is_action_just_pressed("ui_up"):
+		$AnimationPlayer.play("Jump")
+		if nextToWall():
+			stamina -= 3
+			velocity.y = jump_speed
+			if not is_on_floor() and nextToRightWall():
+				velocity.x -= WallJump
+				velocity.y -= JumpWall
+			
+			if not is_on_floor() and nextToLeftWall():
+				velocity.x = WallJump
+				velocity.y -= JumpWall
+
+
+	if nextToWall() and velocity.y > 30:
+		$AnimationPlayer.play("WallJump")
+		velocity.y = 30
+		if nextToRightWall():
+			$Sprite.flip_h = false
+			$Hand.flip_h = false
+			$Hand.position.x = 4
+			$RayCast2D.cast_to.x = 10
+			$WalkParticles.visible = true
+			$WalkParticles.process_material.initial_velocity = -1000
+			$WalkParticles.rotation_degrees = 19.2
+		if nextToLeftWall():
+			$Sprite.flip_h = true
+			$Hand.flip_h = true
+			$Hand.position.x = -4
+			$RayCast2D.cast_to.x = -10
+			$WalkParticles.visible = true
+			$WalkParticles.process_material.initial_velocity = 1000
+			$WalkParticles.rotation_degrees = -33.4
 
 	if Input.is_action_just_pressed("item_roll"):
 		rng.randomize()
@@ -170,6 +202,24 @@ func get_inputs():
 		else:
 			$Hand/AnimationPlayer.play("trick1")
 #		print(int(random_animation))
+
+#WALL JUMP
+func nextToWall():
+	return nextToRightWall() or nextToLeftWall()
+
+
+func nextToRightWall():
+	var collider = $Destra.get_collider()
+	if collider != null:
+		if not "Lama" in collider.name:
+			return $Destra.is_colliding()
+
+func nextToLeftWall():
+	var collider = $Sinistra.get_collider()
+	if collider != null:
+		if not "Lama" in collider.name:
+			return $Sinistra.is_colliding()
+#FINE WALL JUMP
 
 func animation():
 	if velocity.x < 0:
@@ -201,11 +251,9 @@ func animation():
 		$Sprite.flip_h = false
 	
 	
-	if velocity.y < 0:
-		$AnimationPlayer.play("Jump")
-	if velocity.x != 0 and velocity.y == 0:
+	if velocity.x != 0 and is_on_floor():
 		$AnimationPlayer.play("Run")
-	elif velocity.x == 0 and velocity.y == 0:
+	elif velocity.x == 0 and is_on_floor():
 		$AnimationPlayer.play("Idle")
 
 		$WalkParticles.visible = false
@@ -313,12 +361,11 @@ func drop_item(item):
 
 
 
-func Body_Entered(n_body):
+
+func PickUp_Body_Entered(n_body):
 	body_colliding = true
 	body = n_body
 
-func Body_Exited(body):
+
+func PickUp_Body_Exited(body):
 	body_colliding = false
-
-
-

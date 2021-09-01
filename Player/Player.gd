@@ -13,6 +13,8 @@ var stamina = 100
 var vita = 5
 var rallentamento = 1 #false
 
+var rng = RandomNumberGenerator.new()
+
 var inventory = {
 	"1":{
 		"Selected" : true,
@@ -27,7 +29,9 @@ var inventory = {
 	
 }
 
-
+var cibi = {
+	"cocco" : {"stamina": 20}
+}
 
 var body
 var body_colliding = false
@@ -101,16 +105,21 @@ func _physics_process(delta):
 		$Hand.texture = load("res://Assets/" + item_selected + ".png")
 	else:
 		$Hand.texture = null
-	if Input.is_action_just_pressed("RMB") and item_selected == "pugnale":
-		stamina -= 1
-		lancia_pugnale()
+	if Input.is_action_just_pressed("RMB"):
+		if item_selected == "pugnale":
+			lancia_pugnale()
+			stamina -= 1
 	
-	if Input.is_action_just_pressed("LMB") and item_selected == "pugnale":
-		stamina -= 1
-		if $Hand.flip_h:
-			$Hand/AnimationPlayer.play("Melee-left")
-		else:
-			$Hand/AnimationPlayer.play("Melee-right")
+	
+	if Input.is_action_just_pressed("LMB"):
+		if item_selected == "pugnale":
+			stamina -= 1
+			if $Hand.flip_h:
+				$Hand/AnimationPlayer.play("Melee-left")
+			else:
+				$Hand/AnimationPlayer.play("Melee-right")
+		elif item_selected in cibi:
+			stamina += cibi[item_selected]["stamina"]
 	
 	pickup_item()
 	for i in inventory:
@@ -135,6 +144,8 @@ func get_inputs():
 	if stamina <= 0:
 		rallentamento = 2
 		stamina = 0
+	elif stamina > 100:
+		stamina = 100
 	else:
 		rallentamento = 1
 	
@@ -143,12 +154,22 @@ func get_inputs():
 	if int(target_speed) != 0:
 		stamina -= 0.03
 	
-	if Input.is_action_pressed("ui_up") and is_on_floor() and stamina > 0:
+	if Input.is_action_pressed("ui_up") and is_on_floor() and stamina > 1:
 		velocity.y = jump_speed
 		stamina -= 1
 
-	if Input.is_action_pressed("item_roll"):
-		$Hand/AnimationPlayer.play("trick")
+	if Input.is_action_just_pressed("item_roll"):
+		rng.randomize()
+		print($Sprite.flip_h)
+		var random_animation = rng.randf_range(1, 4)
+		if random_animation >= 2:
+			if not $Sprite.flip_h:
+				$Hand/AnimationPlayer.play("trick2")
+			else:
+				$Hand/AnimationPlayer.play("trick2 left")
+		else:
+			$Hand/AnimationPlayer.play("trick1")
+#		print(int(random_animation))
 
 func animation():
 	if velocity.x < 0:
@@ -209,7 +230,6 @@ func lancia_pugnale():
 					i.flip_h = true
 		pugnale.linear_velocity.y = -10
 		get_node("/root/Node").add_child(pugnale)
-		
 
 
 

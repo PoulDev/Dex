@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Player/CharacterAnimation.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
@@ -7,6 +7,10 @@
 [ext_resource path="res://Assets/Inventory-Cell.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Fonts/I-pixel-u.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://Assets/Inventory-Cell-selected..png" type="Texture" id=7]
+[ext_resource path="res://Scenes/Heart.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scripts/HealthBoxContainer.gd" type="Script" id=9]
+[ext_resource path="res://Assets/stamina-piena.png" type="Texture" id=10]
+[ext_resource path="res://Assets/stamina-vuota.png" type="Texture" id=11]
 
 [sub_resource type="Curve" id=1]
 _data = [ Vector2( 0.887234, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.420245 ), 0.0, 0.0, 0, 0 ]
@@ -284,10 +288,6 @@ region_rect = Rect2( 0, 0, 16, 16 )
 [sub_resource type="DynamicFont" id=17]
 font_data = ExtResource( 6 )
 
-[sub_resource type="DynamicFont" id=18]
-size = 32
-font_data = ExtResource( 6 )
-
 [sub_resource type="DynamicFont" id=19]
 size = 55
 font_data = ExtResource( 6 )
@@ -298,11 +298,11 @@ script = ExtResource( 2 )
 
 [node name="Sinistra" type="RayCast2D" parent="."]
 enabled = true
-cast_to = Vector2( 10, 0 )
+cast_to = Vector2( 7, 0 )
 
 [node name="Destra" type="RayCast2D" parent="."]
 enabled = true
-cast_to = Vector2( -10, 0 )
+cast_to = Vector2( -7, 0 )
 
 [node name="WalkParticles" type="Particles2D" parent="."]
 modulate = Color( 0.117647, 0.0823529, 0.14902, 0.866667 )
@@ -396,6 +396,7 @@ margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
 custom_fonts/font = SubResource( 17 )
+text = "0"
 align = 2
 valign = 1
 __meta__ = {
@@ -542,15 +543,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="infos" type="Label" parent="CanvasLayer"]
-margin_left = 25.0
-margin_right = 40.0
-margin_bottom = 65.0
-custom_fonts/font = SubResource( 18 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="chat_text" type="Label" parent="CanvasLayer"]
 anchor_left = 0.5
 anchor_top = 1.0
@@ -561,6 +553,29 @@ margin_top = -269.0
 margin_right = 378.0
 custom_fonts/font = SubResource( 19 )
 align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+margin_left = 25.0
+margin_top = 25.0
+margin_right = 275.0
+margin_bottom = 25.0
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+life_object = ExtResource( 8 )
+
+[node name="Stamina" type="TextureProgress" parent="CanvasLayer"]
+margin_left = 25.0
+margin_top = 125.0
+margin_right = 275.0
+margin_bottom = 175.0
+value = 70.0
+texture_under = ExtResource( 11 )
+texture_progress = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

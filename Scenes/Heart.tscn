@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Cuore-vuoto.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Cuore-pieno.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Heart.gd" type="Script" id=3]
+
+[node name="CenterContainer" type="CenterContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Heart" type="TextureProgress" parent="."]
+margin_right = 80.0
+margin_bottom = 80.0
+max_value = 2.0
+value = 1.0
+texture_under = ExtResource( 1 )
+texture_progress = ExtResource( 2 )

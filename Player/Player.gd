@@ -8,12 +8,12 @@ var target_speed = 0
 var MAX_SPEED = 80
 var GRAVITY = 10
 var jump_speed = -200
-var WallJump = 200
+var WallJump = 500
 var JumpWall = 10
 
 
 var stamina = 100
-var vita = 5
+var vita = 6
 var rallentamento = 1 #false
 
 var rng = RandomNumberGenerator.new()
@@ -45,6 +45,7 @@ var body_colliding = false
 var area_colliding = false
 
 func _ready():
+	$CanvasLayer/HealthBoxContainer.MaxLife(vita)
 	for i in range(3, 7):
 		inventory[str(i)] = {
 		"Selected" : false,
@@ -55,6 +56,8 @@ func _ready():
 
 
 func _process(delta):
+	$CanvasLayer/HealthBoxContainer.UpdateLife(vita)
+	$CanvasLayer/Stamina.value = stamina
 	select()
 	#	aggiornamento grafica hotbar
 	for i in inventory:
@@ -90,8 +93,7 @@ func _process(delta):
 						if c.name == "Selected":
 							c.visible = false
 
-		# testo aggiornamento stamina e vita
-		$CanvasLayer/infos.text = "stamina: " + str(int(stamina)) + " vita: " + str(vita)
+
 
 
 func _physics_process(delta):
@@ -106,14 +108,14 @@ func _physics_process(delta):
 		$Hand.texture = null
 
 	if Input.is_action_just_pressed("RMB"):
-		if item_selected == "pugnale" and stamina > 3:
+		if item_selected == "pugnale" and stamina > 1:
 			lancia_pugnale()
-			stamina -= 3
+			stamina -= 1
 	
 	
 	if Input.is_action_just_pressed("LMB"):
-		if item_selected == "pugnale" and stamina > 3:
-			stamina -= 3
+		if item_selected == "pugnale" and stamina > 1:
+			stamina -= 1
 			if $Hand.flip_h:
 				$Hand/AnimationPlayer.play("Melee-left")
 			else:

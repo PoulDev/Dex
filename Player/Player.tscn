@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Player/CharacterAnimation.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Scripts/HealthBoxContainer.gd" type="Script" id=9]
 [ext_resource path="res://Assets/stamina-piena.png" type="Texture" id=10]
 [ext_resource path="res://Assets/stamina-vuota.png" type="Texture" id=11]
+[ext_resource path="res://Assets/TextBox.png" type="Texture" id=12]
 
 [sub_resource type="Curve" id=1]
 _data = [ Vector2( 0.887234, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.420245 ), 0.0, 0.0, 0, 0 ]
@@ -281,14 +282,14 @@ tracks/0/keys = {
 [sub_resource type="RectangleShape2D" id=15]
 extents = Vector2( 8.5, 11 )
 
-[sub_resource type="StyleBoxTexture" id=16]
+[sub_resource type="StyleBoxTexture" id=17]
 texture = ExtResource( 5 )
 region_rect = Rect2( 0, 0, 16, 16 )
 
-[sub_resource type="DynamicFont" id=17]
+[sub_resource type="DynamicFont" id=18]
 font_data = ExtResource( 6 )
 
-[sub_resource type="DynamicFont" id=19]
+[sub_resource type="DynamicFont" id=16]
 size = 55
 font_data = ExtResource( 6 )
 
@@ -379,7 +380,7 @@ __meta__ = {
 margin_right = 50.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 16 )
+custom_styles/panel = SubResource( 17 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/1"]
 visible = false
@@ -395,7 +396,7 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 17 )
+custom_fonts/font = SubResource( 18 )
 text = "0"
 align = 2
 valign = 1
@@ -408,7 +409,7 @@ margin_left = 54.0
 margin_right = 104.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 16 )
+custom_styles/panel = SubResource( 17 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/2"]
 visible = false
@@ -424,7 +425,7 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 17 )
+custom_fonts/font = SubResource( 18 )
 align = 2
 valign = 1
 __meta__ = {
@@ -436,7 +437,7 @@ margin_left = 108.0
 margin_right = 158.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 16 )
+custom_styles/panel = SubResource( 17 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/3"]
 visible = false
@@ -452,7 +453,7 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 17 )
+custom_fonts/font = SubResource( 18 )
 align = 2
 valign = 1
 __meta__ = {
@@ -464,7 +465,7 @@ margin_left = 162.0
 margin_right = 212.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 16 )
+custom_styles/panel = SubResource( 17 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/4"]
 visible = false
@@ -480,7 +481,7 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 17 )
+custom_fonts/font = SubResource( 18 )
 align = 2
 valign = 1
 __meta__ = {
@@ -492,7 +493,7 @@ margin_left = 216.0
 margin_right = 266.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 16 )
+custom_styles/panel = SubResource( 17 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/5"]
 visible = false
@@ -508,7 +509,7 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 17 )
+custom_fonts/font = SubResource( 18 )
 align = 2
 valign = 1
 __meta__ = {
@@ -520,7 +521,7 @@ margin_left = 270.0
 margin_right = 320.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 16 )
+custom_styles/panel = SubResource( 17 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/6"]
 visible = false
@@ -536,23 +537,9 @@ scale = Vector2( 3.15, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 17 )
+custom_fonts/font = SubResource( 18 )
 align = 2
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="chat_text" type="Label" parent="CanvasLayer"]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -378.0
-margin_top = -269.0
-margin_right = 378.0
-custom_fonts/font = SubResource( 19 )
-align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -576,6 +563,29 @@ margin_bottom = 175.0
 value = 70.0
 texture_under = ExtResource( 11 )
 texture_progress = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="text_area" type="Sprite" parent="CanvasLayer"]
+visible = false
+position = Vector2( 960, 881 )
+scale = Vector2( 10, 10 )
+z_index = -1
+texture = ExtResource( 12 )
+
+[node name="chat_text" type="Label" parent="CanvasLayer/text_area"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -74.0
+margin_top = -22.0
+margin_right = 606.0
+margin_bottom = 104.0
+rect_scale = Vector2( 0.1, 0.1 )
+custom_fonts/font = SubResource( 16 )
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

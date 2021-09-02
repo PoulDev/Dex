@@ -127,7 +127,7 @@ func _physics_process(delta):
 	
 	pickup_item()
 	for i in inventory:
-		if inventory[i]["Selected"]:
+		if inventory[i]["Selected"] and inventory[i]["Count"] > 0:
 			drop_item(i)
 	
 	animation()
@@ -153,11 +153,18 @@ func get_inputs():
 	else:
 		rallentamento = 1
 	
+	if Input.is_action_pressed("run"):
+		MAX_SPEED = 130
+	else:
+		MAX_SPEED = 80
+	
 	target_speed = (Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")) * ( MAX_SPEED / rallentamento )
 	
 	if int(target_speed) != 0:
-		stamina -= 0.008
-	
+		if MAX_SPEED == 80:
+			stamina -= 0.008
+		else:
+			stamina -= 0.01
 	if Input.is_action_pressed("ui_up") and is_on_floor() and stamina > 1:
 		$AnimationPlayer.play("Jump")
 		velocity.y = jump_speed
@@ -350,15 +357,15 @@ func pickup_item():
 			body.queue_free()
 			if "pugnale" in body.name:
 				inv_add("pugnale")
-			else:
-				inv_add(body.name)
+			elif "Maiale" in body.name:
+				if "Crudo" in body.get_node("Sprite").texture.load_path:
+					inv_add("Maiale-Crudo")
+				else:
+					inv_add("Maiale-Cotto")
 			body = null
 	if area:
 		if "cartello" in area.name:
-			$CanvasLayer/chat_text.text = area.editor_description
-		else:
-			$CanvasLayer/chat_text.visible = false
-
+			$CanvasLayer/text_area/chat_text.text = area.editor_description
 
 func drop_item(item):
 	if Input.is_action_just_pressed("Drop") and inventory[item]["Count"] > 0:
@@ -377,7 +384,8 @@ func drop_item(item):
 					i.flip_h = true
 		drop.linear_velocity.y = -10
 		get_node("/root/Node").add_child(drop)
-		
+		if inventory[item]["Count"] <= 0:
+			inventory[item]["Item"] = ""
 
 
 
@@ -398,10 +406,12 @@ func PickUp_area_entered(n_area):
 	area_colliding = true
 	area = n_area
 	if "cartello" in area.name:
-		$CanvasLayer/chat_text.visible = true
-
+		$CanvasLayer/text_area/chat_text.visible = true
+		$CanvasLayer/text_area.visible = true
 
 func PickUp_area_exited(area):
 	area_colliding = false
 	if "cartello" in area.name:
-		$CanvasLayer/chat_text.visible = false
+		$CanvasLayer/text_area/chat_text.visible = false
+		$CanvasLayer/text_area.visible = false
+

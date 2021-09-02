@@ -26,18 +26,23 @@ var inventory = {
 	},
 	"2":{
 		"Selected" : false,
-		"Item" : "cocco",
+		"Item" : "Maiale-Crudo",
 		"Count" : 3
 	}
 	
 }
 
 var cibi = {
-	"cocco" : {"stamina": 20}
+	"Pollo-Cotto" : {"stamina": 20},
+	"Pollo-Crudo" : {"stamina": 5},
+	"Maiale-Cotto" : {"stamina": 20},
+	"Maiale-Crudo" : {"stamina": 5}
 }
 
 var body
+var area
 var body_colliding = false
+var area_colliding = false
 
 func _ready():
 	for i in range(3, 7):
@@ -114,13 +119,9 @@ func _physics_process(delta):
 			else:
 				$Hand/AnimationPlayer.play("Melee-right")
 		
-		elif item_selected in cibi:
+		elif item_selected in cibi and stamina < 100:
 			stamina += cibi[item_selected]["stamina"]
-			for i in inventory:
-				if inventory[i]["Item"] == item_selected:
-					inventory[i]["Count"] -= 1
-					if inventory[i]["Count"] <= 0:
-						inventory[i]["Item"] = ""
+			inv_remove(item_selected)
 	
 	pickup_item()
 	for i in inventory:
@@ -266,7 +267,7 @@ func lancia_pugnale():
 	if inventory[inv_selected()]["Count"] > 0:
 		inventory[inv_selected()]["Count"] -= 1
 		if inventory[inv_selected()]["Count"] <= 0:
-			inventory[inv_selected()] = {"Selected" : true,	"Item" : "","Count" : 0}
+			inventory[inv_selected()] = {"Selected" : true, "Item" : "","Count" : 0}
 		var pugnale = load("res://Scenes/Pugnale.tscn").instance()
 		pugnale.position = self.position + $RayCast2D.cast_to.normalized()*3
 		pugnale.apply_impulse(Vector2(), $RayCast2D.cast_to.normalized())
@@ -307,6 +308,14 @@ func inv_add(item):
 				inventory[inv_item]["Count"] += 1
 				break
 
+func inv_remove(item):
+	for i in inventory:
+		if inventory[i]["Item"] == item:
+				inventory[i]["Count"] -= 1
+				if inventory[i]["Count"] <= 0:
+					inventory[i]["Item"] = ""
+
+
 func inv_selected():
 	for i in inventory:
 		if inventory[i]["Selected"] == true:
@@ -334,10 +343,6 @@ func select():
 
 func pickup_item():
 	if body:
-		if "cartello" in body.name:
-			$CanvasLayer/chat_text.text = body.editor_description
-		else:
-			$CanvasLayer/chat_text.visible = false
 		if Input.is_action_just_pressed("Pick") and body.is_in_group("Drop") and inv_check(body.name):
 			
 			body.queue_free()
@@ -346,6 +351,11 @@ func pickup_item():
 			else:
 				inv_add(body.name)
 			body = null
+	if area:
+		if "cartello" in area.name:
+			$CanvasLayer/chat_text.text = area.editor_description
+		else:
+			$CanvasLayer/chat_text.visible = false
 
 
 func drop_item(item):
@@ -373,10 +383,23 @@ func drop_item(item):
 func PickUp_Body_Entered(n_body):
 	body_colliding = true
 	body = n_body
-	$CanvasLayer/chat_text.visible = true
+
 
 
 func PickUp_Body_Exited(body):
 	body_colliding = false
-	$CanvasLayer/chat_text.visible = false
-	
+
+
+
+
+func PickUp_area_entered(n_area):
+	area_colliding = true
+	area = n_area
+	if "cartello" in area.name:
+		$CanvasLayer/chat_text.visible = true
+
+
+func PickUp_area_exited(area):
+	area_colliding = false
+	if "cartello" in area.name:
+		$CanvasLayer/chat_text.visible = false

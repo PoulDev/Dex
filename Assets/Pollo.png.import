@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/birra.png-dc8ff3a4a50a9ce645783abd9fbde208.stex"
+path="res://.import/Pollo.png-0cf2343f52cf342ccc858c7b0e37df10.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/birra.png"
-dest_files=[ "res://.import/birra.png-dc8ff3a4a50a9ce645783abd9fbde208.stex" ]
+source_file="res://Assets/Pollo.png"
+dest_files=[ "res://.import/Pollo.png-0cf2343f52cf342ccc858c7b0e37df10.stex" ]
 
 [params]
 
@@ -30,5 +30,5 @@ process/HDR_as_SRGB=false
 process/invert_color=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0

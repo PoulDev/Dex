@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/cuori.png-baddbc51f37c7a2fd1244f686fc27175.stex"
+path="res://.import/Maiale-Crudo.png-a69137e68112ada4d2f057a46f5eae76.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/cuori.png"
-dest_files=[ "res://.import/cuori.png-baddbc51f37c7a2fd1244f686fc27175.stex" ]
+source_file="res://Assets/Maiale-Crudo.png"
+dest_files=[ "res://.import/Maiale-Crudo.png-a69137e68112ada4d2f057a46f5eae76.stex" ]
 
 [params]
 

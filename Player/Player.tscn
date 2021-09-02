@@ -565,5 +565,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[connection signal="area_entered" from="PickUp" to="." method="PickUp_area_entered"]
+[connection signal="area_exited" from="PickUp" to="." method="PickUp_area_exited"]
 [connection signal="body_entered" from="PickUp" to="." method="PickUp_Body_Entered"]
 [connection signal="body_exited" from="PickUp" to="." method="PickUp_Body_Exited"]

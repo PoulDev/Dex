@@ -10,6 +10,14 @@ func _on_Area2D_area_entered(area):
 
 
 func _on_Area2D_body_entered(body):
-	print(body.name)
-	if "Maiale" in body.name:
-		body.get_node("Sprite").texture = load("res://Assets/Maiale-Cotto.png")
+	if $Sprite/Fire.emitting:
+		if "Maiale-Crudo" in body.name:
+			var Cotto = load("res://Scenes/Maiale-Cotto.tscn").instance()
+			Cotto.global_position = body.global_position
+			get_node("/root/Node").add_child(Cotto)
+			body.queue_free()
+		if "Pollo-Crudo" in body.name:
+			var Cotto = load("res://Scenes/Pollo-Cotto.tscn").instance()
+			Cotto.global_position = body.global_position
+			get_node("/root/Node").add_child(Cotto)
+			body.queue_free()

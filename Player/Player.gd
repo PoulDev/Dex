@@ -26,7 +26,7 @@ var inventory = {
 	},
 	"2":{
 		"Selected" : false,
-		"Item" : "Maiale-Crudo",
+		"Item" : "Pollo-Crudo",
 		"Count" : 3
 	}
 	
@@ -45,6 +45,8 @@ var body_colliding = false
 var area_colliding = false
 
 func _ready():
+	$AreaButton.visible = false
+	$BodyButton.visible = false
 	$CanvasLayer/HealthBoxContainer.MaxLife(vita)
 	for i in range(3, 7):
 		inventory[str(i)] = {
@@ -205,7 +207,6 @@ func get_inputs():
 
 	if Input.is_action_just_pressed("item_roll"):
 		rng.randomize()
-		print($Sprite.flip_h)
 		var random_animation = rng.randf_range(1, 4)
 		if random_animation >= 2:
 			if not $Sprite.flip_h:
@@ -351,9 +352,10 @@ func select():
 	
 
 func pickup_item():
-	if body:
+	if body and body_colliding:
+		if not "TileMap" in body.name and not "Pollo" in body.name:
+			$BodyButton.visible = true
 		if Input.is_action_just_pressed("Pick") and body.is_in_group("Drop") and inv_check(body.name):
-			
 			body.queue_free()
 			if "pugnale" in body.name:
 				inv_add("pugnale")
@@ -362,10 +364,29 @@ func pickup_item():
 					inv_add("Maiale-Crudo")
 				else:
 					inv_add("Maiale-Cotto")
+			elif "Pollo" in body.name:
+				if "Crudo" in body.get_node("Sprite").texture.load_path:
+					inv_add("Pollo-Crudo")
+				else:
+					inv_add("Pollo-Cotto")
 			body = null
-	if area:
+	if !body_colliding:
+		$BodyButton.visible = false
+		
+	if area and area_colliding:
+		if not "Melee" in area.name and not "HitBox" in area.name:
+			$AreaButton.visible = true
+		if get_node("/root/Node/Falo/Sprite/Fire").emitting:
+			$AreaButton.visible = false
 		if "cartello" in area.name:
+			$AreaButton.visible = false
 			$CanvasLayer/text_area/chat_text.text = area.editor_description
+		if "Falo" in area.name and Input.is_action_just_pressed("Pick"):
+			get_node("/root/Node/Falo/Sprite/Fire").emitting = true
+			get_node("/root/Node/Falo/Sprite/Fire/Smoke").emitting = true
+	
+	if !area_colliding:
+		$AreaButton.visible = false
 
 func drop_item(item):
 	if Input.is_action_just_pressed("Drop") and inventory[item]["Count"] > 0:
@@ -398,6 +419,7 @@ func PickUp_Body_Entered(n_body):
 
 func PickUp_Body_Exited(body):
 	body_colliding = false
+	body = null
 
 
 

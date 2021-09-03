@@ -373,9 +373,11 @@ func pickup_item():
 				else:
 					inv_add("Pollo-Cotto")
 			body = null
-		elif Input.is_action_just_pressed("Pick") and "Spaghetto" in area.name:
-			$scolapasta.visible = true
-			area.queue_free()
+		
+		if area:
+			if Input.is_action_just_pressed("Pick") and "Spaghetto" in area.name:
+				$scolapasta.visible = true
+				area.queue_free()
 	
 	if !body_colliding:
 		$BodyButton.visible = false
@@ -391,6 +393,7 @@ func pickup_item():
 		if "Falo" in area.name and Input.is_action_just_pressed("Pick"):
 			get_node("/root/Node/Falo/Sprite/Fire").emitting = true
 			get_node("/root/Node/Falo/Sprite/Fire/Smoke").emitting = true
+			get_node("/root/Node/Falo/Timer").start()
 	
 	if !area_colliding:
 		$AreaButton.visible = false

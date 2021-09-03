@@ -4,8 +4,8 @@ var FLOOR_NORMAL : = Vector2.UP
 
 var life = 3
 
-var gravity : = 10
-var speed : = 45
+var gravity : = 20
+var speed : = 20
 var velocity : = Vector2()
 
 var rng = RandomNumberGenerator.new()
@@ -67,11 +67,16 @@ func _on_fai_qualcosa_timer_timeout():
 		velocity.x = 0
 		print("fermo")
 	elif rand == 1:
-		velocity.x = 50 * speed
+		velocity.x = 15 * speed
 		print("destra")
 	elif rand == 2:
-		velocity.x = -50 * speed
+		velocity.x = -15 * speed
 		print("sinistra")
 	elif rand == 3:
-		velocity.y = -100
+		velocity.y = -800
+		var rand2 = randi() % 2
+		if rand2 == 0:
+			velocity.x = 1 * speed
+		else:
+			velocity.x = -1 * speed
 		print("salta")

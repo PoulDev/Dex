@@ -27,7 +27,7 @@ var inventory = {
 	"2":{
 		"Selected" : false,
 		"Item" : "Pollo-Crudo",
-		"Count" : 3
+		"Count" : 100
 	}
 	
 }
@@ -353,10 +353,15 @@ func select():
 
 func pickup_item():
 	if body and body_colliding:
-		if not "TileMap" in body.name and not "Pollo" in body.name:
+		if not "TileMap" in body.name and not "Pollo" in body.name and body.name != "Player":
+			print(body.name)
+			print(body)
 			$BodyButton.visible = true
+		
+		
 		if Input.is_action_just_pressed("Pick") and body.is_in_group("Drop") and inv_check(body.name):
 			body.queue_free()
+			
 			if "pugnale" in body.name:
 				inv_add("pugnale")
 			elif "Maiale" in body.name:
@@ -370,6 +375,10 @@ func pickup_item():
 				else:
 					inv_add("Pollo-Cotto")
 			body = null
+		elif Input.is_action_just_pressed("Pick") and "Spaghetto" in area.name:
+			$scolapasta.visible = true
+			area.queue_free()
+	
 	if !body_colliding:
 		$BodyButton.visible = false
 		
@@ -427,6 +436,7 @@ func PickUp_Body_Exited(body):
 func PickUp_area_entered(n_area):
 	area_colliding = true
 	area = n_area
+	print(area.name)
 	if "cartello" in area.name:
 		$CanvasLayer/text_area/chat_text.visible = true
 		$CanvasLayer/text_area.visible = true

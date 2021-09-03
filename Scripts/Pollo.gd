@@ -7,9 +7,8 @@ var life = 3
 var gravity : = 1
 var speed : = 45
 var velocity : = Vector2()
-var target_speed : = 0.0
 
-
+var rng = RandomNumberGenerator.new()
 
 onready var animated_sprite : Sprite = $Sprite as Sprite
 onready var ray : RayCast2D = $RayCast2D as RayCast2D
@@ -32,33 +31,20 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	get_inputs()
+
+
+		
 	if !is_on_floor():
 		FLOOR_NORMAL = Vector2.UP
 		animated_sprite.flip_v = false
 		velocity.y += gravity
 		
-	velocity.x = lerp(velocity.x, target_speed, .4)
 
 	if abs(velocity.x) < 1:
 		velocity.x = 0
 
 	var snap : = Vector2.DOWN * 8
-	velocity = move_and_slide_with_snap(velocity, snap, FLOOR_NORMAL)
-
-
-
-func get_inputs() -> void:
-	randomize()
-	if ray.is_colliding():
-		ray.cast_to *= -1
-			
-	target_speed = sign(ray.cast_to.x) * speed
-
-
-
-
-
+	velocity = move_and_slide(velocity*speed, FLOOR_NORMAL)
 
 
 
@@ -66,11 +52,32 @@ func _on_HitBox_body_entered(body):
 	if "pugnale" in body.name:
 		life -= 1
 		$AnimationPlayer2.play("Damage")
+		velocity.y = -30
 
 
 func _on_HitBox_area_entered(area):
 	if "Melee" in area.name:
 		life -= 1
 		$AnimationPlayer2.play("Damage")
+		velocity.y = -30
 
 
+
+
+func _on_fai_qualcosa_timer_timeout():
+	randomize()
+	$fai_qualcosa_timer.start()
+	var rand = randi() % 4
+
+	if rand == 0:
+		velocity.x = 0
+		print("fermo")
+	elif rand == 1:
+		velocity.x = 20
+		print("destra")
+	elif rand == 2:
+		velocity.x = -20
+		print("sinistra")
+	elif rand == 3:
+		velocity.y = -20
+		print("salta")

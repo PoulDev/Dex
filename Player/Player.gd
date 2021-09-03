@@ -26,7 +26,7 @@ var inventory = {
 	},
 	"2":{
 		"Selected" : false,
-		"Item" : "Pollo-Crudo",
+		"Item" : "Pollo-Cotto",
 		"Count" : 100
 	}
 	
@@ -354,8 +354,6 @@ func select():
 func pickup_item():
 	if body and body_colliding:
 		if not "TileMap" in body.name and not "Pollo" in body.name and body.name != "Player":
-			print(body.name)
-			print(body)
 			$BodyButton.visible = true
 		
 		
@@ -436,7 +434,6 @@ func PickUp_Body_Exited(body):
 func PickUp_area_entered(n_area):
 	area_colliding = true
 	area = n_area
-	print(area.name)
 	if "cartello" in area.name:
 		$CanvasLayer/text_area/chat_text.visible = true
 		$CanvasLayer/text_area.visible = true

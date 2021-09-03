@@ -4,15 +4,13 @@ var FLOOR_NORMAL : = Vector2.UP
 
 var life = 3
 
-var gravity : = 1
+var gravity : = 10
 var speed : = 45
 var velocity : = Vector2()
 
 var rng = RandomNumberGenerator.new()
 
 onready var animated_sprite : Sprite = $Sprite as Sprite
-onready var ray : RayCast2D = $RayCast2D as RayCast2D
-
 
 func _process(delta: float) -> void:
 	if life <= 0:
@@ -31,9 +29,6 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-
-
-		
 	if !is_on_floor():
 		FLOOR_NORMAL = Vector2.UP
 		animated_sprite.flip_v = false
@@ -42,9 +37,8 @@ func _physics_process(delta: float) -> void:
 
 	if abs(velocity.x) < 1:
 		velocity.x = 0
-
-	var snap : = Vector2.DOWN * 8
-	velocity = move_and_slide(velocity*speed, FLOOR_NORMAL)
+		
+	velocity = move_and_slide(velocity*speed*delta, FLOOR_NORMAL)
 
 
 
@@ -65,19 +59,19 @@ func _on_HitBox_area_entered(area):
 
 
 func _on_fai_qualcosa_timer_timeout():
-	randomize()
 	$fai_qualcosa_timer.start()
+	randomize()
 	var rand = randi() % 4
 
 	if rand == 0:
 		velocity.x = 0
 		print("fermo")
 	elif rand == 1:
-		velocity.x = 20
+		velocity.x = 50 * speed
 		print("destra")
 	elif rand == 2:
-		velocity.x = -20
+		velocity.x = -50 * speed
 		print("sinistra")
 	elif rand == 3:
-		velocity.y = -20
+		velocity.y = -100
 		print("salta")

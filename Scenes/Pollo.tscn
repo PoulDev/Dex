@@ -61,11 +61,6 @@ anims/Run = SubResource( 2 )
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
 anims/Damage = SubResource( 3 )
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
-position = Vector2( 0, 3 )
-enabled = true
-cast_to = Vector2( 10, 0 )
-
 [node name="HitBox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
@@ -73,7 +68,7 @@ position = Vector2( 0.5, 2.5 )
 shape = SubResource( 4 )
 
 [node name="fai_qualcosa_timer" type="Timer" parent="."]
-wait_time = 5.0
+autostart = true
 
 [connection signal="area_entered" from="HitBox" to="." method="_on_HitBox_area_entered"]
 [connection signal="body_entered" from="HitBox" to="." method="_on_HitBox_body_entered"]

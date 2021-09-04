@@ -1204,15 +1204,11 @@ motion_mirroring = Vector2( 1440, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
 
-[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2( -809.493, 1387.08 )
-scale = Vector2( 1.02987, 3.9134 )
-motion_mirroring = Vector2( 1440, 0 )
-
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer5"]
-modulate = Color( 0.0745098, 0.0823529, 0.129412, 1 )
-position = Vector2( 35.9811, -156.624 )
-scale = Vector2( 22.5677, 5.85264 )
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 0.106192, 0.120069, 0.189453, 1 )
+position = Vector2( 6429.06, 1094.46 )
+scale = Vector2( 327.098, 33.7585 )
+z_index = -10
 texture = ExtResource( 14 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]

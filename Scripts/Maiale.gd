@@ -4,7 +4,7 @@ var FLOOR_NORMAL : = Vector2.UP
 
 var life = 3
 
-var gravity : = 5
+var gravity : = 10
 var speed : = 20
 var velocity : = Vector2()
 
@@ -14,7 +14,7 @@ onready var animated_sprite : Sprite = $Sprite as Sprite
 
 func _process(delta: float) -> void:
 	if life <= 0:
-		var carne = load("res://Scenes/Pollo-Crudo.tscn").instance()
+		var carne = load("res://Scenes/Maiale-Crudo.tscn").instance()
 		carne.global_position = global_position
 		get_node("/root/Node").add_child(carne)
 		queue_free()

@@ -353,7 +353,7 @@ func select():
 
 func pickup_item():
 	if body and body_colliding:
-		if not "TileMap" in body.name and not "Pollo" in body.name and body.name != "Player":
+		if not "TileMap" in body.name and not "pollo" in body.name and not "maiale" in body.name and body.name != "Player":
 			$BodyButton.visible = true
 		
 		
@@ -377,7 +377,7 @@ func pickup_item():
 		if area:
 			if Input.is_action_just_pressed("Pick") and "Spaghetto" in area.name:
 				$scolapasta.visible = true
-				area.queue_free()
+				area = null
 	
 	if !body_colliding:
 		$BodyButton.visible = false

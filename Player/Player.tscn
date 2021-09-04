@@ -333,7 +333,6 @@ scale = Vector2( 0.0351056, 0.0397282 )
 texture = ExtResource( 14 )
 
 [node name="AreaButton" type="Sprite" parent="."]
-visible = false
 position = Vector2( 1, -21 )
 texture = ExtResource( 13 )
 hframes = 2
@@ -343,7 +342,6 @@ autoplay = "Idle"
 anims/Idle = SubResource( 1 )
 
 [node name="BodyButton" type="Sprite" parent="."]
-visible = false
 position = Vector2( 1, -21 )
 texture = ExtResource( 13 )
 hframes = 2
@@ -625,7 +623,7 @@ __meta__ = {
 
 [node name="text_area" type="Sprite" parent="CanvasLayer"]
 visible = false
-position = Vector2( 960, 881 )
+position = Vector2( 960, 943 )
 scale = Vector2( 10, 10 )
 z_index = -1
 texture = ExtResource( 12 )

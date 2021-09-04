@@ -30,6 +30,7 @@ var unavolta = true
 func _physics_process(delta: float) -> void:
 	velocity.y += gravity
 	
+	
 	if scelta == "fermo":
 		velocity.x = 0
 	
@@ -46,6 +47,10 @@ func _physics_process(delta: float) -> void:
 
 	velocity = move_and_slide_with_snap(velocity, Vector2.UP, FLOOR_NORMAL)
 
+	if velocity.x == 0:
+		$AnimationPlayer.play("idle")
+	else:
+		$AnimationPlayer.play("Run")
 
 
 func _on_HitBox_body_entered(body):

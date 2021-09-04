@@ -244,11 +244,11 @@ func animation():
 		$RayCast2D.cast_to.x = -10
 
 
-		if body and body.name == "TileMap":
-			print(body.name)
-			$WalkParticles.visible = true
-			$WalkParticles.process_material.initial_velocity = 1000
-			$WalkParticles.rotation_degrees = -33.4
+		if body:
+			if body.name == "TileMap":
+				$WalkParticles.visible = true
+				$WalkParticles.process_material.initial_velocity = 1000
+				$WalkParticles.rotation_degrees = -33.4
 	elif velocity.x > 0:
 		$Sprite.flip_h = false
 

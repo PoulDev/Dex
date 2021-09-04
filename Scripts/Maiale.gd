@@ -82,3 +82,6 @@ func _on_fai_qualcosa_timer_timeout():
 	elif rand == 3:
 		scelta = "salta"
 	$fai_qualcosa_timer.start()
+
+func view_collisions(si):
+	$view_collision.visible = si

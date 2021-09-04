@@ -661,7 +661,25 @@ margin_top = -441.433
 margin_right = 50.4198
 margin_bottom = -13.4332
 custom_fonts/font = SubResource( 21 )
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="dev2" type="Label" parent="CanvasLayer"]
+visible = false
+modulate = Color( 1, 1, 1, 0.882353 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -68.8027
+margin_top = -446.772
+margin_right = 944.197
+margin_bottom = -18.7726
+custom_fonts/font = SubResource( 21 )
 text = "acer"
+align = 2
 valign = 2
 __meta__ = {
 "_edit_use_anchors_": false

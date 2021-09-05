@@ -18,8 +18,6 @@ func _ready():
 
 
 func _on_Timer_timeout():
-	randomize()
-	$Timer.wait_time = randi() % 40
 	var pollo = load("res://Scenes/Pollo.tscn").instance()
 	var maiale = load("res://Scenes/Maiale.tscn").instance()
 	
@@ -31,5 +29,7 @@ func _on_Timer_timeout():
 	else:
 		maiale.global_position = Vector2(rng.randf_range(0, 100), 0)
 		get_node("/root/Node").call_deferred("add_child", maiale)
+	randomize()
+	$Timer.wait_time = randi() % 40
 	$Timer.start()
 

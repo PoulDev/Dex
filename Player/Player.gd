@@ -232,25 +232,21 @@ func nextToLeftWall():
 func animation():
 	if velocity.x < 0:
 		$Sprite.flip_h = true
-
 		$Hand.flip_h = true
 		$Hand.position.x = -4
 		$RayCast2D.cast_to.x = -10
-
-
-		if body:
-			if body.name == "TileMap":
-				$WalkParticles.visible = true
-				$WalkParticles.process_material.initial_velocity = 1000
-				$WalkParticles.rotation_degrees = -33.4
+		
+		if is_on_floor():
+			$WalkParticles.visible = true
+			$WalkParticles.process_material.initial_velocity = 1000
+			$WalkParticles.rotation_degrees = -33.4
 	elif velocity.x > 0:
 		$Sprite.flip_h = false
-
 		$Hand.flip_h = false
 		$Hand.position.x = 4
 		$RayCast2D.cast_to.x = 10
 		
-		if body and body.name == "TileMap":
+		if is_on_floor():
 			$WalkParticles.visible = true
 			$WalkParticles.process_material.initial_velocity = -1000
 			$WalkParticles.rotation_degrees = 19.2

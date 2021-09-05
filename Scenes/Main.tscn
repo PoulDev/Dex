@@ -1,4 +1,4 @@
-[gd_scene load_steps=128 format=2]
+[gd_scene load_steps=129 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/tilemap.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://Assets/background/parallax-02.png" type="Texture" id=13]
 [ext_resource path="res://Assets/fire_particle.png" type="Texture" id=14]
 [ext_resource path="res://Assets/background/parallax-03.png" type="Texture" id=15]
+[ext_resource path="res://Assets/background/parallax-04.png" type="Texture" id=16]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -759,7 +760,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 7/z_index = 0
 8/name = "Tilemap-Montagna.png 8"
 8/texture = ExtResource( 8 )
-8/tex_offset = Vector2( 0, 1 )
+8/tex_offset = Vector2( 0, 0 )
 8/modulate = Color( 1, 1, 1, 1 )
 8/region = Rect2( 0, 0, 256, 208 )
 8/tile_mode = 1
@@ -1185,7 +1186,7 @@ script = ExtResource( 10 )
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2( -62.1426, -37.5928 )
+position = Vector2( -62.1426, -57.5928 )
 motion_scale = Vector2( 0, 1 )
 motion_mirroring = Vector2( 256, 0 )
 script = ExtResource( 12 )
@@ -1204,7 +1205,7 @@ texture = ExtResource( 11 )
 offset = Vector2( -321.241, 14.3334 )
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2( -67.175, -24.9943 )
+position = Vector2( -67.175, -44.9943 )
 motion_scale = Vector2( 0.1, 1 )
 motion_mirroring = Vector2( 256, 0 )
 
@@ -1219,7 +1220,7 @@ position = Vector2( 511.517, -0.0131245 )
 texture = ExtResource( 13 )
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2( -67.175, -36.7421 )
+position = Vector2( -67.175, -56.7421 )
 motion_scale = Vector2( 0.2, 1 )
 motion_mirroring = Vector2( 256, 0 )
 
@@ -1230,9 +1231,21 @@ texture = ExtResource( 15 )
 position = Vector2( 512, 0 )
 texture = ExtResource( 15 )
 
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( -67.175, -56.7421 )
+motion_scale = Vector2( 0.2, 1 )
+motion_mirroring = Vector2( 256, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer5"]
+texture = ExtResource( 16 )
+
+[node name="Sprite2" type="Sprite" parent="ParallaxBackground/ParallaxLayer5"]
+position = Vector2( 512, 0 )
+texture = ExtResource( 16 )
+
 [node name="Sprite" type="Sprite" parent="."]
 modulate = Color( 0.106192, 0.120069, 0.189453, 1 )
-position = Vector2( -92.7912, 179.447 )
+position = Vector2( -93.7912, 179.447 )
 scale = Vector2( 327.098, 33.7585 )
 z_index = -10
 texture = ExtResource( 14 )
@@ -1244,10 +1257,10 @@ scale = Vector2( 0.8, 0.8 )
 z_index = 1
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2( 0.443451, -49.8517 )
+position = Vector2( 0, -50 )
 scale = Vector2( 2, 2 )
 current = true
-zoom = Vector2( 0.18, 0.18 )
+zoom = Vector2( 0.2, 0.2 )
 smoothing_enabled = true
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -1338,7 +1351,7 @@ shape = SubResource( 108 )
 modulate = Color( 0.0470588, 0.0470588, 0.0470588, 0.545098 )
 position = Vector2( 5736.88, -575.277 )
 frames = SubResource( 112 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="SpawnerAnimali" parent="." instance=ExtResource( 9 )]

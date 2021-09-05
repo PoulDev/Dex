@@ -19,10 +19,10 @@ func _on_Area2D_body_entered(body):
 		if "Maiale-Crudo" in body.name:
 			var Cotto = load("res://Scenes/Maiale-Cotto.tscn").instance()
 			Cotto.global_position = body.global_position
-			get_node("/root/Node").add_child(Cotto)
+			get_node("/root/Node").call_deferred("add_child", Cotto)
 			body.queue_free()
 		if "Pollo-Crudo" in body.name:
 			var Cotto = load("res://Scenes/Pollo-Cotto.tscn").instance()
 			Cotto.global_position = body.global_position
-			get_node("/root/Node").add_child(Cotto)
+			get_node("/root/Node").call_deferred("add_child", Cotto)
 			body.queue_free()

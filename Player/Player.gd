@@ -23,13 +23,7 @@ var inventory = {
 		"Selected" : true,
 		"Item" : "pugnale",
 		"Count" : 3
-	},
-	"2":{
-		"Selected" : false,
-		"Item" : "Pollo-Cotto",
-		"Count" : 100
 	}
-	
 }
 
 var cibi = {
@@ -48,7 +42,7 @@ func _ready():
 	$AreaButton.visible = false
 	$BodyButton.visible = false
 	$CanvasLayer/HealthBoxContainer.MaxLife(vita)
-	for i in range(3, 7):
+	for i in range(2, 7):
 		inventory[str(i)] = {
 		"Selected" : false,
 		"Item" : "",
@@ -215,7 +209,7 @@ func get_inputs():
 				$Hand/AnimationPlayer.play("trick2 left")
 		else:
 			$Hand/AnimationPlayer.play("trick1")
-#		print(int(random_animation))
+
 
 #WALL JUMP
 func nextToWall():
@@ -281,7 +275,7 @@ func lancia_pugnale():
 		inventory[inv_selected()]["Count"] -= 1
 		if inventory[inv_selected()]["Count"] <= 0:
 			inventory[inv_selected()] = {"Selected" : true, "Item" : "","Count" : 0}
-		var pugnale = load("res://Scenes/Pugnale.tscn").instance()
+		var pugnale = load("res://Scenes/pugnale.tscn").instance()
 		pugnale.position = self.position + $RayCast2D.cast_to.normalized()*3
 		pugnale.apply_impulse(Vector2(), $RayCast2D.cast_to.normalized())
 		if !$Sprite.flip_h:
@@ -361,8 +355,6 @@ func pickup_item():
 		
 		
 		if Input.is_action_just_pressed("Pick") and body.is_in_group("Drop") and inv_check(body.name):
-			body.queue_free()
-			
 			if "pugnale" in body.name:
 				inv_add("pugnale")
 			elif "Maiale" in body.name:
@@ -375,6 +367,7 @@ func pickup_item():
 					inv_add("Pollo-Crudo")
 				else:
 					inv_add("Pollo-Cotto")
+			body.queue_free()
 			body = null
 		
 		if area:

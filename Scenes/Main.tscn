@@ -1185,34 +1185,49 @@ script = ExtResource( 10 )
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2( -67.175, -93.6 )
+position = Vector2( -62.1426, -37.5928 )
 motion_scale = Vector2( 0, 1 )
-motion_mirroring = Vector2( 512, 0 )
+motion_mirroring = Vector2( 256, 0 )
 script = ExtResource( 12 )
 __meta__ = {
 "_editor_description_": ""
 }
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
-scale = Vector2( 2, 2 )
+position = Vector2( 321.241, -14.3334 )
 texture = ExtResource( 11 )
+offset = Vector2( -321.241, 14.3334 )
+
+[node name="Sprite2" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 832.91, -14.333 )
+texture = ExtResource( 11 )
+offset = Vector2( -321.241, 14.3334 )
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
 position = Vector2( -67.175, -24.9943 )
 motion_scale = Vector2( 0.1, 1 )
-motion_mirroring = Vector2( 512, 0 )
+motion_mirroring = Vector2( 256, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
-scale = Vector2( 2, 2 )
+modulate = Color( 0.870588, 0.937255, 0.933333, 1 )
+position = Vector2( -0.471313, 0 )
+texture = ExtResource( 13 )
+
+[node name="Sprite2" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
+modulate = Color( 0.870588, 0.937255, 0.933333, 1 )
+position = Vector2( 511.517, -0.0131245 )
 texture = ExtResource( 13 )
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
 position = Vector2( -67.175, -36.7421 )
 motion_scale = Vector2( 0.2, 1 )
-motion_mirroring = Vector2( 512, 0 )
+motion_mirroring = Vector2( 256, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
-scale = Vector2( 2, 2 )
+texture = ExtResource( 15 )
+
+[node name="Sprite2" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
+position = Vector2( 512, 0 )
 texture = ExtResource( 15 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -1224,7 +1239,7 @@ texture = ExtResource( 14 )
 offset = Vector2( 19.9352, 27.1046 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 76.4851, -13.1421 )
+position = Vector2( -75.3072, 0.0572395 )
 scale = Vector2( 0.8, 0.8 )
 z_index = 1
 
@@ -1323,6 +1338,7 @@ shape = SubResource( 108 )
 modulate = Color( 0.0470588, 0.0470588, 0.0470588, 0.545098 )
 position = Vector2( 5736.88, -575.277 )
 frames = SubResource( 112 )
+frame = 1
 playing = true
 
 [node name="SpawnerAnimali" parent="." instance=ExtResource( 9 )]

@@ -356,10 +356,12 @@ autoplay = "Idle"
 anims/Idle = SubResource( 2 )
 
 [node name="Sinistra" type="RayCast2D" parent="."]
+visible = false
 enabled = true
 cast_to = Vector2( 7, 0 )
 
 [node name="Destra" type="RayCast2D" parent="."]
+visible = false
 enabled = true
 cast_to = Vector2( -7, 0 )
 
@@ -381,6 +383,7 @@ shape = SubResource( 6 )
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 hframes = 9
+frame = 3
 
 [node name="Hand" type="Sprite" parent="."]
 position = Vector2( 4, 2 )
@@ -395,6 +398,7 @@ anims/trick2 = SubResource( 10 )
 "anims/trick2 left" = SubResource( 11 )
 
 [node name="Melee-Attack" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Melee-Attack"]
 position = Vector2( 8, 1 )
@@ -408,6 +412,7 @@ anims/Run = SubResource( 15 )
 anims/WallJump = SubResource( 16 )
 
 [node name="PickUp" type="Area2D" parent="."]
+visible = false
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickUp"]

@@ -150,14 +150,11 @@ func get_inputs():
 		rallentamento = 1
 	
 	if Input.is_action_pressed("run_"):
-		print("run")
 		MAX_SPEED = 130
 	else:
 		MAX_SPEED = 80
-		print("walk")
 	
 	target_speed = (Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")) * ( MAX_SPEED / rallentamento )
-	print(target_speed)
 	if int(target_speed) != 0:
 		if MAX_SPEED == 80:
 			stamina -= 0.008
@@ -238,7 +235,7 @@ func animation():
 		$Hand.position.x = -4
 		$RayCast2D.cast_to.x = -10
 		
-		if is_on_floor():
+		if $RayParticles.is_colliding() and "Tilemap" in $RayParticles.get_collider().name:
 			$WalkParticles.visible = true
 			$WalkParticles.process_material.initial_velocity = 1000
 			$WalkParticles.rotation_degrees = -33.4
@@ -248,7 +245,7 @@ func animation():
 		$Hand.position.x = 4
 		$RayCast2D.cast_to.x = 10
 		
-		if is_on_floor():
+		if $RayParticles.is_colliding() and "Tilemap" in $RayParticles.get_collider().name:
 			$WalkParticles.visible = true
 			$WalkParticles.process_material.initial_velocity = -1000
 			$WalkParticles.rotation_degrees = 19.2

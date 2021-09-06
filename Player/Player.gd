@@ -149,13 +149,15 @@ func get_inputs():
 	else:
 		rallentamento = 1
 	
-	if Input.is_action_pressed("run"):
+	if Input.is_action_pressed("run_"):
+		print("run")
 		MAX_SPEED = 130
 	else:
 		MAX_SPEED = 80
+		print("walk")
 	
 	target_speed = (Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")) * ( MAX_SPEED / rallentamento )
-	
+	print(target_speed)
 	if int(target_speed) != 0:
 		if MAX_SPEED == 80:
 			stamina -= 0.008

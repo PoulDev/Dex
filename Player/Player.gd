@@ -13,7 +13,7 @@ var JumpWall = 10
 
 
 var stamina = 100
-var vita = 6
+var vita = 10
 var rallentamento = 1 #false
 
 var rng = RandomNumberGenerator.new()
@@ -42,7 +42,7 @@ func _ready():
 	$AreaButton.visible = false
 	$BodyButton.visible = false
 	$CanvasLayer/HealthBoxContainer.MaxLife(vita)
-	for i in range(2, 7):
+	for i in range(2, 9):
 		inventory[str(i)] = {
 		"Selected" : false,
 		"Item" : "",
@@ -52,6 +52,10 @@ func _ready():
 
 
 func _process(delta):
+	if vita <= 0:
+		get_tree().reload_current_scene()
+	
+	
 	$CanvasLayer/HealthBoxContainer.UpdateLife(vita)
 	$CanvasLayer/Stamina.value = stamina
 	select()
@@ -328,11 +332,11 @@ var selected = 1
 func select():
 	if Input.is_action_just_released("RollUp"):
 		if selected == 1:
-			selected = 6
+			selected = 8
 		else:
 			selected -= 1
 	if Input.is_action_just_released("RollDown"):
-		if selected == 6:
+		if selected == 8:
 			selected = 1
 		else:
 			selected += 1
@@ -345,7 +349,7 @@ func select():
 
 func pickup_item():
 	if body and body_colliding:
-		if not "TileMap" in body.name and not "pollo" in body.name and not "maiale" in body.name and body.name != "Player":
+		if not "TileMap" in body.name and not "pollo" in body.name and not "maiale" in body.name and body.name != "Player" and not body.is_in_group("Enemy"):
 			$BodyButton.visible = true
 		
 		
@@ -365,7 +369,7 @@ func pickup_item():
 			body.queue_free()
 			body = null
 		
-		if area:
+		if area and area_colliding:
 			if Input.is_action_just_pressed("Pick") and "Spaghetto" in area.name:
 				$scolapasta.visible = true
 				area = null
@@ -374,7 +378,7 @@ func pickup_item():
 		$BodyButton.visible = false
 		
 	if area and area_colliding:
-		if not "Melee" in area.name and not "HitBox" in area.name:
+		if not "Melee" in area.name and not "HitBox" in area.name and area.get_parent().is_in_group("Enemy"):
 			$AreaButton.visible = true
 		if get_node("/root/Node/Falo/Sprite/Fire").emitting:
 			$AreaButton.visible = false
@@ -438,3 +442,12 @@ func PickUp_area_exited(area):
 		$CanvasLayer/text_area/chat_text.visible = false
 		$CanvasLayer/text_area.visible = false
 
+
+
+func _on_Hitbox_area_entered(area):
+	if area.name == "Attack":
+		vita -= 1
+
+
+func _on_Hitbox_area_exited(area):
+	pass # Replace with function body.

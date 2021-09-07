@@ -13,8 +13,8 @@ __meta__ = {
 }
 
 [node name="Heart" type="TextureProgress" parent="."]
-margin_right = 80.0
-margin_bottom = 80.0
+margin_right = 48.0
+margin_bottom = 48.0
 max_value = 2.0
 value = 1.0
 texture_under = ExtResource( 1 )

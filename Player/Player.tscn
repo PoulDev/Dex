@@ -244,7 +244,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=12]
-extents = Vector2( 3.90215, 6.54416 )
+extents = Vector2( 8, 10 )
 
 [sub_resource type="Animation" id=13]
 length = 0.6
@@ -404,6 +404,11 @@ visible = false
 position = Vector2( 8, 1 )
 shape = SubResource( 12 )
 disabled = true
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource( 12 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Idle = SubResource( 13 )
@@ -678,10 +683,10 @@ __meta__ = {
 life_object = ExtResource( 8 )
 
 [node name="Stamina" type="TextureProgress" parent="CanvasLayer"]
-margin_left = 25.0
-margin_top = 125.0
-margin_right = 275.0
-margin_bottom = 175.0
+margin_left = 32.0
+margin_top = 107.472
+margin_right = 282.0
+margin_bottom = 157.472
 rect_scale = Vector2( 3, 3 )
 value = 70.0
 texture_under = ExtResource( 11 )
@@ -754,6 +759,8 @@ __meta__ = {
 enabled = true
 cast_to = Vector2( 0, 20 )
 
+[connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
+[connection signal="area_exited" from="Hitbox" to="." method="_on_Hitbox_area_exited"]
 [connection signal="area_entered" from="PickUp" to="." method="PickUp_area_entered"]
 [connection signal="area_exited" from="PickUp" to="." method="PickUp_area_exited"]
 [connection signal="body_entered" from="PickUp" to="." method="PickUp_Body_Entered"]

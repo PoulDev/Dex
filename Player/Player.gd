@@ -39,6 +39,17 @@ var body_colliding = false
 var area_colliding = false
 
 func _ready():
+	position = Vector2(Global.save["player"]["x"], Global.save["player"]["y"])
+	vita = Global.save["player"]["vite"]
+	stamina = Global.save["player"]["stamina"]
+	
+	
+	inventory.clear()
+	inventory = Global.save["inventario"]
+	
+	
+	
+	
 	$AreaButton.visible = false
 	$BodyButton.visible = false
 	$CanvasLayer/HealthBoxContainer.MaxLife(vita)
@@ -52,6 +63,13 @@ func _ready():
 
 
 func _process(delta):
+	Global.save["player"]["x"] = position.x
+	Global.save["player"]["y"] = position.y
+	Global.save["player"]["vite"] = vita
+	Global.save["player"]["stamina"] = stamina
+	Global.save["inventario"] = inventory
+	
+	Global._save()
 	if vita <= 0:
 		get_tree().reload_current_scene()
 	
@@ -97,7 +115,7 @@ func _process(delta):
 
 
 func _physics_process(delta):
-	var item_selected
+	var item_selected = ""
 	for i in inventory:
 		if inventory[i]["Selected"]:
 			item_selected = inventory[i]["Item"]

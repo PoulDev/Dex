@@ -15,7 +15,11 @@ _global_script_class_icons={
 [application]
 
 config/name="Dex"
-run/main_scene="res://Scenes/Main.tscn"
+run/main_scene="res://Scenes/Menu.tscn"
+
+[autoload]
+
+Global="*res://Scripts/Global.gd"
 
 [display]
 

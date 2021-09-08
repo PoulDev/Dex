@@ -4,9 +4,12 @@ extends Control
 func _ready():
 	pass
 
+func _process(delta):
+	var file_ = File.new()
+	if file_.file_exists(Global.file):
+		$Continue.disabled = false
 
 func _on_NewGame_button_down():
-	$Title.text = "Loading..."
 	get_tree().change_scene("res://Scenes/Main.tscn")
 	Global.save = {
 	"player" : {
@@ -62,7 +65,6 @@ func _on_NewGame_button_down():
 
 
 func _on_Continue_button_down():
-	$Title.text = "Loading..."
 	get_tree().change_scene("res://Scenes/Main.tscn")
 	Global._load()
 

@@ -14,6 +14,7 @@ var JumpWall = 10
 
 var stamina = 100
 var vita = 10
+var maxvita = 10
 var rallentamento = 1 #false
 
 var rng = RandomNumberGenerator.new()
@@ -27,10 +28,10 @@ var inventory = {
 }
 
 var cibi = {
-	"Pollo-Cotto" : {"stamina": 20},
-	"Pollo-Crudo" : {"stamina": 5},
-	"Maiale-Cotto" : {"stamina": 20},
-	"Maiale-Crudo" : {"stamina": 5}
+	"Pollo-Cotto" : {"stamina": 20, "vita": 1},
+	"Pollo-Crudo" : {"stamina": 5, "vita": 0},
+	"Maiale-Cotto" : {"stamina": 20, "vita": 1},
+	"Maiale-Crudo" : {"stamina": 5, "vita": 0}
 }
 
 var body
@@ -39,6 +40,8 @@ var body_colliding = false
 var area_colliding = false
 
 func _ready():
+	if Global.save["player"]["vite"] <= 0:
+		Global.save["player"]["vite"] = vita
 	position = Vector2(Global.save["player"]["x"], Global.save["player"]["y"])
 	vita = Global.save["player"]["vite"]
 	stamina = Global.save["player"]["stamina"]
@@ -52,7 +55,7 @@ func _ready():
 	
 	$AreaButton.visible = false
 	$BodyButton.visible = false
-	$CanvasLayer/HealthBoxContainer.MaxLife(vita)
+	$CanvasLayer/HealthBoxContainer.MaxLife(maxvita)
 	for i in range(2, 9):
 		inventory[str(i)] = {
 		"Selected" : false,
@@ -65,7 +68,8 @@ func _ready():
 func _process(delta):
 	Global.save["player"]["x"] = position.x
 	Global.save["player"]["y"] = position.y
-	Global.save["player"]["vite"] = vita
+	if Global.save["player"]["vite"] > 0:
+		Global.save["player"]["vite"] = vita
 	Global.save["player"]["stamina"] = stamina
 	Global.save["inventario"] = inventory
 	
@@ -141,6 +145,9 @@ func _physics_process(delta):
 		
 		elif item_selected in cibi and stamina < 100:
 			stamina += cibi[item_selected]["stamina"]
+			vita += cibi[item_selected]["vita"]
+			if vita > maxvita:
+				$CanvasLayer/HealthBoxContainer.MaxLife(vita)
 			inv_remove(item_selected)
 	
 	pickup_item()

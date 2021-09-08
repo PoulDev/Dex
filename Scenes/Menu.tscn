@@ -1,13 +1,50 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scripts/Menu.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Fonts/I-pixel-u.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Assets/Title.png" type="Texture" id=2]
+[ext_resource path="res://Assets/ContinueButton.png" type="Texture" id=3]
+[ext_resource path="res://Assets/NewGameButton.png" type="Texture" id=4]
+[ext_resource path="res://Assets/ExitButton.png" type="Texture" id=5]
 
-[sub_resource type="DynamicFont" id=1]
-font_data = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 51, 14 )
 
-[sub_resource type="DynamicFont" id=2]
-font_data = ExtResource( 2 )
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 4 )
+region = Rect2( 102, 0, 51, 14 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 4 )
+region = Rect2( 51, 0, 51, 14 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 51, 14 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 3 )
+region = Rect2( 102, 0, 51, 14 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 3 )
+region = Rect2( 51, 0, 51, 14 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 3 )
+region = Rect2( 153, 0, 51, 14 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 51, 14 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 5 )
+region = Rect2( 102, 0, 51, 14 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 5 )
+region = Rect2( 51, 0, 51, 14 )
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -19,54 +56,51 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Title" type="Label" parent="."]
-margin_left = 960.0
-margin_top = 300.0
-margin_right = 1068.0
-margin_bottom = 320.0
-rect_scale = Vector2( 7, 7 )
-rect_pivot_offset = Vector2( 54, 10 )
-custom_fonts/font = SubResource( 1 )
-text = "DEXPLORER"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Title" type="Sprite" parent="."]
+position = Vector2( 960, 300 )
+scale = Vector2( 10, 10 )
+texture = ExtResource( 2 )
 
-[node name="NewGame" type="Button" parent="."]
+[node name="NewGame" type="TextureButton" parent="."]
 margin_left = 960.0
 margin_top = 540.0
-margin_right = 1054.0
-margin_bottom = 566.0
-rect_scale = Vector2( 5, 5 )
-rect_pivot_offset = Vector2( 47, 13 )
-custom_fonts/font = SubResource( 2 )
-text = "New Game"
+margin_right = 1011.0
+margin_bottom = 554.0
+rect_scale = Vector2( 10, 10 )
+rect_pivot_offset = Vector2( 25, 7 )
+texture_normal = SubResource( 5 )
+texture_pressed = SubResource( 6 )
+texture_hover = SubResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Continue" type="Button" parent="."]
+[node name="Continue" type="TextureButton" parent="."]
 margin_left = 960.0
-margin_top = 720.0
-margin_right = 1054.0
-margin_bottom = 746.0
-rect_scale = Vector2( 5, 5 )
-rect_pivot_offset = Vector2( 47, 13 )
-custom_fonts/font = SubResource( 2 )
-text = "Continue"
+margin_top = 700.0
+margin_right = 1011.0
+margin_bottom = 714.0
+rect_scale = Vector2( 10, 10 )
+rect_pivot_offset = Vector2( 25, 7 )
+disabled = true
+texture_normal = SubResource( 8 )
+texture_pressed = SubResource( 9 )
+texture_hover = SubResource( 10 )
+texture_disabled = SubResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Exit" type="Button" parent="."]
+[node name="Exit" type="TextureButton" parent="."]
 margin_left = 960.0
-margin_top = 900.0
-margin_right = 1054.0
-margin_bottom = 926.0
-rect_scale = Vector2( 5, 5 )
-rect_pivot_offset = Vector2( 47, 13 )
-custom_fonts/font = SubResource( 2 )
-text = "Exit"
+margin_top = 860.0
+margin_right = 1011.0
+margin_bottom = 874.0
+rect_scale = Vector2( 10, 10 )
+rect_pivot_offset = Vector2( 25, 7 )
+texture_normal = SubResource( 2 )
+texture_pressed = SubResource( 3 )
+texture_hover = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

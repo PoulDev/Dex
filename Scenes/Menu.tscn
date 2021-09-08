@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Scripts/Menu.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Title.png" type="Texture" id=2]
@@ -43,6 +43,61 @@ atlas = ExtResource( 5 )
 region = Rect2( 102, 0, 51, 14 )
 
 [sub_resource type="AtlasTexture" id=10]
+=======
+[sub_resource type="Animation" id=1]
+resource_name = "main"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimationPlayer/Title:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5, 3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 962.828, 200 ), Vector2( 962.828, 275 ), Vector2( 962.828, 200 ) ]
+}
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 51, 14 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 4 )
+region = Rect2( 102, 0, 51, 14 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 4 )
+region = Rect2( 51, 0, 51, 14 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 51, 14 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 3 )
+region = Rect2( 102, 0, 51, 14 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 3 )
+region = Rect2( 51, 0, 51, 14 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 3 )
+region = Rect2( 153, 0, 51, 14 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 51, 14 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 5 )
+region = Rect2( 102, 0, 51, 14 )
+
+[sub_resource type="AtlasTexture" id=11]
+>>>>>>> c801f2b1e14bbaad671daccf0260389722ba5069
 atlas = ExtResource( 5 )
 region = Rect2( 51, 0, 51, 14 )
 
@@ -56,8 +111,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Title" type="Sprite" parent="."]
-position = Vector2( 960, 300 )
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/main = SubResource( 1 )
+
+[node name="Title" type="Sprite" parent="AnimationPlayer"]
+position = Vector2( 962.828, 200 )
 scale = Vector2( 10, 10 )
 texture = ExtResource( 2 )
 
@@ -68,9 +126,15 @@ margin_right = 1011.0
 margin_bottom = 554.0
 rect_scale = Vector2( 10, 10 )
 rect_pivot_offset = Vector2( 25, 7 )
+<<<<<<< HEAD
 texture_normal = SubResource( 1 )
 texture_pressed = SubResource( 2 )
 texture_hover = SubResource( 3 )
+=======
+texture_normal = SubResource( 2 )
+texture_pressed = SubResource( 3 )
+texture_hover = SubResource( 4 )
+>>>>>>> c801f2b1e14bbaad671daccf0260389722ba5069
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -83,10 +147,17 @@ margin_bottom = 714.0
 rect_scale = Vector2( 10, 10 )
 rect_pivot_offset = Vector2( 25, 7 )
 disabled = true
+<<<<<<< HEAD
 texture_normal = SubResource( 4 )
 texture_pressed = SubResource( 5 )
 texture_hover = SubResource( 6 )
 texture_disabled = SubResource( 7 )
+=======
+texture_normal = SubResource( 5 )
+texture_pressed = SubResource( 6 )
+texture_hover = SubResource( 7 )
+texture_disabled = SubResource( 8 )
+>>>>>>> c801f2b1e14bbaad671daccf0260389722ba5069
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -98,9 +169,15 @@ margin_right = 1011.0
 margin_bottom = 874.0
 rect_scale = Vector2( 10, 10 )
 rect_pivot_offset = Vector2( 25, 7 )
+<<<<<<< HEAD
 texture_normal = SubResource( 8 )
 texture_pressed = SubResource( 9 )
 texture_hover = SubResource( 10 )
+=======
+texture_normal = SubResource( 9 )
+texture_pressed = SubResource( 10 )
+texture_hover = SubResource( 11 )
+>>>>>>> c801f2b1e14bbaad671daccf0260389722ba5069
 __meta__ = {
 "_edit_use_anchors_": false
 }

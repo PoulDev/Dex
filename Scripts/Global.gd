@@ -5,6 +5,9 @@ func _ready():
 	pass
 
 var save = {
+	"Entity" : {
+		
+	},
 	"player" : {
 		"x" : 0,
 		"y" : 0,
@@ -56,7 +59,7 @@ var save = {
 }
 
 
-var file = "user://file.save"
+var file = "user://_file2_.save"
 
 func _save():
 	var file_ = File.new()
@@ -73,6 +76,9 @@ func _load():
 		file_.close()
 	else:
 		save = {
+	"Entity" : {
+		
+	},
 	"player" : {
 		"x" : 0,
 		"y" : 0,

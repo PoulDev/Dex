@@ -70,11 +70,16 @@ func _process(delta):
 	Global.save["player"]["y"] = position.y
 	if Global.save["player"]["vite"] > 0:
 		Global.save["player"]["vite"] = vita
+		
+
 	Global.save["player"]["stamina"] = stamina
 	Global.save["inventario"] = inventory
 	
 	Global._save()
 	if vita <= 0:
+		Global.save["player"]["x"] = 0
+		Global.save["player"]["y"] = 0
+		Global.save["player"]["stamina"] = 100
 		get_tree().reload_current_scene()
 	
 	
@@ -374,7 +379,7 @@ func select():
 
 func pickup_item():
 	if body and body_colliding:
-		if not "TileMap" in body.name and not "pollo" in body.name and not "maiale" in body.name and body.name != "Player" and not body.is_in_group("Enemy"):
+		if body.is_in_group("Drop"):
 			$BodyButton.visible = true
 		
 		
@@ -403,13 +408,15 @@ func pickup_item():
 		$BodyButton.visible = false
 		
 	if area and area_colliding:
-		if not "Melee" in area.name and not "HitBox" in area.name and area.get_parent().is_in_group("Enemy"):
+		if area.name == "Falo":
 			$AreaButton.visible = true
+		
 		if get_node("/root/Node/Falo/Sprite/Fire").emitting:
 			$AreaButton.visible = false
+		
 		if "cartello" in area.name:
-			$AreaButton.visible = false
 			$CanvasLayer/text_area/chat_text.text = area.editor_description
+		
 		if "Falo" in area.name and Input.is_action_just_pressed("Pick"):
 			get_node("/root/Node/Falo/Sprite/Fire").emitting = true
 			get_node("/root/Node/Falo/Sprite/Fire/Smoke").emitting = true

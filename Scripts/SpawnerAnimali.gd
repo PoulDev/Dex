@@ -18,18 +18,19 @@ func _ready():
 
 
 func _on_Timer_timeout():
-	var pollo = load("res://Scenes/Pollo.tscn").instance()
-	var maiale = load("res://Scenes/Maiale.tscn").instance()
-	
-	randomize()
-	var rand = randi() % 2
-	if rand == 0:
-		pollo.global_position = Vector2(rng.randf_range(0, 100), 0)
-		get_node("/root/Node").call_deferred("add_child", pollo)
-	else:
-		maiale.global_position = Vector2(rng.randf_range(0, 100), 0)
-		get_node("/root/Node").call_deferred("add_child", maiale)
-	randomize()
-	$Timer.wait_time = randi() % 40
-	$Timer.start()
+	if Global.save["Entity"].size() < 50:
+		var pollo = load("res://Scenes/Pollo.tscn").instance()
+		var maiale = load("res://Scenes/Maiale.tscn").instance()
+		
+		randomize()
+		var rand = randi() % 2
+		if rand == 0:
+			pollo.global_position = Vector2(position.x + rng.randf_range(0, 100), position.y)
+			get_node("/root/Node").call_deferred("add_child", pollo)
+		else:
+			maiale.global_position = Vector2(position.x + rng.randf_range(0, 100), position.y)
+			get_node("/root/Node").call_deferred("add_child", maiale)
+		randomize()
+		$Timer.wait_time = randi() % 40
+		$Timer.start()
 

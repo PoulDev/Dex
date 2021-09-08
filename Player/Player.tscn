@@ -684,9 +684,9 @@ life_object = ExtResource( 8 )
 
 [node name="Stamina" type="TextureProgress" parent="CanvasLayer"]
 margin_left = 32.0
-margin_top = 107.472
+margin_top = 88.472
 margin_right = 282.0
-margin_bottom = 157.472
+margin_bottom = 138.472
 rect_scale = Vector2( 3, 3 )
 value = 70.0
 texture_under = ExtResource( 11 )

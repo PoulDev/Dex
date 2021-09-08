@@ -11,6 +11,9 @@ var jump_speed = -170
 
 var life = 3
 
+var scelta = ""
+var unavolta = false
+
 var player_collided = false
 var Attack = false
 
@@ -20,6 +23,21 @@ func _ready():
 	pass
 
 func _physics_process(delta):
+	if !player:
+		if scelta == "fermo":
+			velocity.x = 0
+		
+		elif scelta == "destra":
+			velocity.x = 1 * MAX_SPEED
+		
+		elif scelta == "sinistra":
+			velocity.x = -1 * MAX_SPEED
+		
+		elif scelta == "salta":
+			if unavolta and is_on_floor():
+				velocity.y = -100
+				unavolta = false
+		
 	if player_collided:
 		Attack = true
 	animation()
@@ -28,6 +46,7 @@ func _physics_process(delta):
 		pugnale.global_position = global_position
 		get_node("/root/Node").add_child(pugnale)
 		queue_free()
+	
 	if player != null:
 		if player.position.x > position.x:
 			velocity.x = MAX_SPEED
@@ -91,4 +110,16 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "Attack":
 		Attack = false
 
-
+func _on_fai_qualcosa_timer_timeout():
+	randomize()
+	var rand = randi() % 4
+	
+	if rand == 0:
+		scelta = "fermo"
+	elif rand == 1:
+		scelta = "destra"
+	elif rand == 2:
+		scelta = "sinistra"
+	elif rand == 3:
+		scelta = "salta"
+	$fai_qualcosa_timer.start()

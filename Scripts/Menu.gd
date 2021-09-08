@@ -12,6 +12,9 @@ func _process(delta):
 func _on_NewGame_button_down():
 	get_tree().change_scene("res://Scenes/Main.tscn")
 	Global.save = {
+	"Entity" : {
+		
+	},
 	"player" : {
 		"x" : 0,
 		"y" : 0,
@@ -61,7 +64,6 @@ func _on_NewGame_button_down():
 		}
 	}
 }
-
 
 
 func _on_Continue_button_down():

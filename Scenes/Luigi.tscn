@@ -35,7 +35,7 @@ tracks/1/keys = {
 "values": [ true, true, false, true ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=3]
 resource_name = "Idle"
 length = 0.05
 tracks/0/type = "value"
@@ -51,8 +51,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "Run"
+[sub_resource type="Animation" id=4]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -68,7 +67,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:modulate")
@@ -83,14 +82,15 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 6.5, 8 )
 
-[sub_resource type="CircleShape2D" id=6]
+[sub_resource type="CircleShape2D" id=7]
 radius = 100.0
 
 [node name="Luigi" type="KinematicBody2D" groups=[
 "Enemy",
+"Save",
 ]]
 collision_mask = 63
 script = ExtResource( 2 )
@@ -106,18 +106,18 @@ shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Attack = SubResource( 2 )
-anims/Idle = SubResource( 7 )
-anims/Run = SubResource( 3 )
+anims/Idle = SubResource( 3 )
+anims/Run = SubResource( 4 )
 
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
-anims/Damage = SubResource( 4 )
+anims/Damage = SubResource( 5 )
 
 [node name="Attack" type="Area2D" parent="."]
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Attack"]
 position = Vector2( 5.5, 2.5 )
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 disabled = true
 
 [node name="HitBox" type="Area2D" parent="."]
@@ -125,14 +125,18 @@ collision_mask = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2( 0, 2.5 )
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="Range" type="Area2D" parent="."]
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
 position = Vector2( 0, 2.5 )
-shape = SubResource( 6 )
+shape = SubResource( 7 )
+
+[node name="fai_qualcosa_timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="area_entered" from="HitBox" to="." method="_on_HitBox_area_entered"]
@@ -140,3 +144,4 @@ shape = SubResource( 6 )
 [connection signal="body_exited" from="HitBox" to="." method="_on_HitBox_body_exited"]
 [connection signal="body_entered" from="Range" to="." method="_on_Range_body_entered"]
 [connection signal="body_exited" from="Range" to="." method="_on_Range_body_exited"]
+[connection signal="timeout" from="fai_qualcosa_timer" to="." method="_on_fai_qualcosa_timer_timeout"]

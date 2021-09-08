@@ -9,6 +9,10 @@ func _process(delta):
 	if file_.file_exists(Global.file):
 		$Continue.disabled = false
 
+	var anim = $AnimationPlayer.get_animation("main")
+	anim.set_loop(true)
+	$AnimationPlayer.play("main")
+
 func _on_NewGame_button_down():
 	get_tree().change_scene("res://Scenes/Main.tscn")
 	Global.save = {

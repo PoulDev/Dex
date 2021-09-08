@@ -63,7 +63,16 @@ func _on_NewGame_button_down():
 			"Item" : "",
 			"Count" : 0
 		}
-	}
+	},
+	"nemici":
+		{
+			"1": {"x": 537.259, "y": 131.638},
+			"2": {"x": 585.259, "y": 131.638},
+			"3": {"x": 593.259, "y": 88.638},
+			"4": {"x": 822.565, "y": 297.785},
+			"5": {"x": 1166.24, "y": 404.934},
+			"6": {"x": 601.259, "y": 481.185},
+		}
 }
 
 
@@ -71,7 +80,6 @@ func _on_NewGame_button_down():
 func _on_Continue_button_down():
 	get_tree().change_scene("res://Scenes/Main.tscn")
 	Global._load()
-
 
 func _on_Exit_button_down():
 	get_tree().quit()

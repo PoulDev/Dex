@@ -66,20 +66,16 @@ func _ready():
 
 
 func _process(delta):
+	$view_collision.visible = Global.show_collision
 	Global.save["player"]["x"] = position.x
 	Global.save["player"]["y"] = position.y
 	if Global.save["player"]["vite"] > 0:
 		Global.save["player"]["vite"] = vita
-		
-
 	Global.save["player"]["stamina"] = stamina
 	Global.save["inventario"] = inventory
 	
 	Global._save()
 	if vita <= 0:
-		Global.save["player"]["x"] = 0
-		Global.save["player"]["y"] = 0
-		Global.save["player"]["stamina"] = 100
 		get_tree().reload_current_scene()
 	
 	
@@ -150,9 +146,8 @@ func _physics_process(delta):
 		
 		elif item_selected in cibi and stamina < 100:
 			stamina += cibi[item_selected]["stamina"]
-			vita += cibi[item_selected]["vita"]
-			if vita > maxvita:
-				$CanvasLayer/HealthBoxContainer.MaxLife(vita)
+			if vita < maxvita:
+				vita += cibi[item_selected]["vita"]
 			inv_remove(item_selected)
 	
 	pickup_item()
@@ -410,13 +405,11 @@ func pickup_item():
 	if area and area_colliding:
 		if area.name == "Falo":
 			$AreaButton.visible = true
-		
 		if get_node("/root/Node/Falo/Sprite/Fire").emitting:
 			$AreaButton.visible = false
-		
 		if "cartello" in area.name:
+			$AreaButton.visible = false
 			$CanvasLayer/text_area/chat_text.text = area.editor_description
-		
 		if "Falo" in area.name and Input.is_action_just_pressed("Pick"):
 			get_node("/root/Node/Falo/Sprite/Fire").emitting = true
 			get_node("/root/Node/Falo/Sprite/Fire/Smoke").emitting = true

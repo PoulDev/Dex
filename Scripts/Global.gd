@@ -4,6 +4,9 @@ extends Node
 func _ready():
 	pass
 
+var show_collision = false
+
+
 var save = {
 	"Entity" : {
 		

@@ -684,9 +684,9 @@ life_object = ExtResource( 8 )
 
 [node name="Stamina" type="TextureProgress" parent="CanvasLayer"]
 margin_left = 32.0
-margin_top = 88.472
+margin_top = 107.472
 margin_right = 282.0
-margin_bottom = 138.472
+margin_bottom = 157.472
 rect_scale = Vector2( 3, 3 )
 value = 70.0
 texture_under = ExtResource( 11 )
@@ -758,6 +758,13 @@ __meta__ = {
 [node name="RayParticles" type="RayCast2D" parent="."]
 enabled = true
 cast_to = Vector2( 0, 20 )
+
+[node name="view_collision" type="Sprite" parent="."]
+visible = false
+modulate = Color( 1, 0.0588235, 0, 0.533333 )
+position = Vector2( -0.39963, 0 )
+scale = Vector2( 0.171887, -0.25 )
+texture = ExtResource( 3 )
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="area_exited" from="Hitbox" to="." method="_on_Hitbox_area_exited"]

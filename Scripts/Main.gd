@@ -42,9 +42,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("dev_info"):
 		$Player/CanvasLayer/dev.visible = dev
 		$Player/CanvasLayer/dev2.visible = dev
-	
-		for child in self.get_children():
-			if "maiale" in child.name or "pollo" in child.name:
-				child.view_collisions(dev)
+		Global.show_collision = dev
+		
 		
 		dev = !dev

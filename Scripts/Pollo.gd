@@ -13,6 +13,7 @@ var scelta = "fermo"
 onready var animated_sprite : Sprite = $Sprite as Sprite
 
 func _process(delta: float) -> void:
+	$view_collision.visible = Global.show_collision
 	if life <= 0:
 		var carne = load("res://Scenes/Pollo-Crudo.tscn").instance()
 		carne.global_position = global_position
@@ -78,5 +79,3 @@ func _on_fai_qualcosa_timer_timeout():
 		scelta = "salta"
 	$fai_qualcosa_timer.start()
 
-func view_collisions(si):
-	$view_collision.visible = si

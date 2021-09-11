@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Assets/Enemy.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Luigi.gd" type="Script" id=2]
@@ -83,9 +83,12 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 3, 3 )
+
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 6.5, 8 )
 
-[sub_resource type="CircleShape2D" id=7]
+[sub_resource type="CircleShape2D" id=8]
 radius = 100.0
 
 [node name="Luigi" type="KinematicBody2D" groups=[
@@ -113,26 +116,26 @@ anims/Run = SubResource( 4 )
 anims/Damage = SubResource( 5 )
 
 [node name="Attack" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Attack"]
-position = Vector2( 5.5, 2.5 )
+position = Vector2( 3.40625, 4.15625 )
 shape = SubResource( 6 )
 disabled = true
 
 [node name="HitBox" type="Area2D" parent="."]
+visible = false
 collision_mask = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2( 0, 2.5 )
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="Range" type="Area2D" parent="."]
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
 position = Vector2( 0, 2.5 )
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="area_entered" from="HitBox" to="." method="_on_HitBox_area_entered"]

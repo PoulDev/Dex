@@ -45,6 +45,9 @@ func _ready():
 	position = Vector2(Global.save["player"]["x"], Global.save["player"]["y"])
 	vita = Global.save["player"]["vite"]
 	stamina = Global.save["player"]["stamina"]
+	Global.ora = Global.save["Orario"]["ora"]
+	Global.minuto = Global.save["Orario"]["minuto"]
+
 	
 	
 	inventory.clear()
@@ -73,9 +76,13 @@ func _process(delta):
 		Global.save["player"]["vite"] = vita
 	Global.save["player"]["stamina"] = stamina
 	Global.save["inventario"] = inventory
+	Global.save["Orario"]["ora"] = Global.ora
+	Global.save["Orario"]["minuto"] = Global.minuto
 	
 	Global._save()
 	if vita <= 0:
+		Global.save["player"]["x"] = 0
+		Global.save["player"]["y"] = 0
 		get_tree().reload_current_scene()
 	
 	

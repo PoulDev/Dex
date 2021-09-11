@@ -16,6 +16,10 @@ func _process(delta):
 func _on_NewGame_button_down():
 	get_tree().change_scene("res://Scenes/Main.tscn")
 	Global.save = {
+	"Orario": {
+		"ora" : 6,
+		"minuto" : 0
+	},
 	"Entity" : {
 		
 	},

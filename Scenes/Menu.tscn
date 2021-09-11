@@ -76,7 +76,7 @@ __meta__ = {
 anims/main = SubResource( 1 )
 
 [node name="Title" type="Sprite" parent="AnimationPlayer"]
-position = Vector2( 962.828, 200 )
+position = Vector2( 962.828, 265 )
 scale = Vector2( 10, 10 )
 texture = ExtResource( 2 )
 
@@ -123,7 +123,6 @@ texture_hover = SubResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
 [connection signal="button_down" from="NewGame" to="." method="_on_NewGame_button_down"]
 [connection signal="button_down" from="Continue" to="." method="_on_Continue_button_down"]
 [connection signal="button_down" from="Exit" to="." method="_on_Exit_button_down"]

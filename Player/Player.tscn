@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://Player/CharacterAnimation.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
@@ -243,6 +243,9 @@ tracks/1/keys = {
 "values": [ Vector2( -5, 2 ), Vector2( -5, 2 ), Vector2( -5, -25 ), Vector2( -5, -25 ), Vector2( -5, 2 ) ]
 }
 
+[sub_resource type="RectangleShape2D" id=22]
+extents = Vector2( 6.15157, 8 )
+
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 8, 10 )
 
@@ -319,12 +322,14 @@ region_rect = Rect2( 0, 0, 16, 16 )
 [sub_resource type="DynamicFont" id=19]
 font_data = ExtResource( 6 )
 
-[sub_resource type="DynamicFont" id=20]
-size = 55
-font_data = ExtResource( 6 )
-
 [sub_resource type="DynamicFont" id=21]
 size = 32
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=20]
+size = 55
 font_data = ExtResource( 6 )
 
 [node name="Player" type="KinematicBody2D"]
@@ -383,7 +388,7 @@ shape = SubResource( 6 )
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 hframes = 9
-frame = 3
+frame = 2
 
 [node name="Hand" type="Sprite" parent="."]
 position = Vector2( 4, 2 )
@@ -398,14 +403,13 @@ anims/trick2 = SubResource( 10 )
 "anims/trick2 left" = SubResource( 11 )
 
 [node name="Melee-Attack" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Melee-Attack"]
-position = Vector2( 8, 1 )
-shape = SubResource( 12 )
-disabled = true
+position = Vector2( 5, 0 )
+shape = SubResource( 22 )
 
 [node name="Hitbox" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource( 12 )
@@ -683,14 +687,31 @@ __meta__ = {
 life_object = ExtResource( 8 )
 
 [node name="Stamina" type="TextureProgress" parent="CanvasLayer"]
-margin_left = 32.0
-margin_top = 107.472
-margin_right = 282.0
-margin_bottom = 157.472
+margin_left = 33.1892
+margin_top = 108.661
+margin_right = 283.189
+margin_bottom = 158.661
 rect_scale = Vector2( 3, 3 )
 value = 70.0
 texture_under = ExtResource( 11 )
 texture_progress = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Orario" type="Label" parent="CanvasLayer"]
+modulate = Color( 1, 1, 1, 0.882353 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -926.0
+margin_top = -905.0
+margin_right = -822.0
+margin_bottom = -865.0
+rect_scale = Vector2( 2, 2 )
+custom_fonts/font = SubResource( 21 )
+text = "06:00"
 __meta__ = {
 "_edit_use_anchors_": false
 }

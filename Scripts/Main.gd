@@ -5,6 +5,7 @@ var dizionario = {}
 
 
 func _ready():
+	$Orario.start()
 	if Global.save["Entity"] != {}:
 		for entity in Global.save["Entity"]:
 			if "pollo" in entity:
@@ -46,3 +47,29 @@ func _physics_process(delta):
 		
 		
 		dev = !dev
+
+
+
+func _on_Orario_timeout():
+	if Global.minuto < 10:
+		$Player/CanvasLayer/Orario.text = str(Global.ora) + ":0" + str(Global.minuto)
+	else:
+		$Player/CanvasLayer/Orario.text = str(Global.ora) + ":" + str(Global.minuto)
+	if Global.ora < 10:
+		$Player/CanvasLayer/Orario.text = "0" + str(Global.ora) + str(Global.minuto)
+	else:
+		$Player/CanvasLayer/Orario.text = str(Global.ora) + ":" + str(Global.minuto)
+	if Global.ora < 10 and Global.minuto < 10:
+		$Player/CanvasLayer/Orario.text = "0" + str(Global.ora) + ":0" + str(Global.minuto)
+	else:
+		$Player/CanvasLayer/Orario.text = str(Global.ora) + ":" + str(Global.minuto)
+	Global.minuto += 1
+	if Global.minuto >= 60:
+		Global.minuto = 0
+		Global.ora += 1
+	if Global.ora >= 24:
+		Global.ora = 0
+	if Global.ora == 20 and Global.minuto == 0:
+		$CanvasModulate/AnimationPlayer.play("Tramonto")
+	elif Global.ora == 5 and Global.minuto == 32:
+		$CanvasModulate/AnimationPlayer.play("Alba")

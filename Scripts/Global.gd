@@ -6,8 +6,15 @@ func _ready():
 
 var show_collision = false
 
+var ora = 0
+var minuto = 0
+
 
 var save = {
+	"Orario": {
+		"ora" : 6,
+		"minuto" : 0
+	},
 	"Entity" : {
 		
 	},
@@ -62,7 +69,7 @@ var save = {
 }
 
 
-var file = "user://_file2_.save"
+var file = "user://_file3_.save"
 
 func _save():
 	var file_ = File.new()
@@ -79,6 +86,10 @@ func _load():
 		file_.close()
 	else:
 		save = {
+	"Orario": {
+		"ora" : 6,
+		"minuto" : 0
+	},
 	"Entity" : {
 		
 	},

@@ -13,6 +13,10 @@ func _process(delta):
 	anim.set_loop(true)
 	$AnimationPlayer.play("main")
 
+	if Input.is_action_just_pressed("fullscreen"):
+		OS.window_fullscreen = !OS.window_fullscreen
+
+
 func _on_NewGame_button_down():
 	get_tree().change_scene("res://Scenes/Main.tscn")
 	Global.save = {

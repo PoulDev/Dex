@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://Player/CharacterAnimation.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://Assets/TextBox.png" type="Texture" id=12]
 [ext_resource path="res://Assets/E-Button.png" type="Texture" id=13]
 [ext_resource path="res://Assets/scolapasta.png" type="Texture" id=14]
+[ext_resource path="res://Scenes/Particles/DeadParticles.tscn" type="PackedScene" id=15]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Idle"
@@ -243,13 +244,13 @@ tracks/1/keys = {
 "values": [ Vector2( -5, 2 ), Vector2( -5, 2 ), Vector2( -5, -25 ), Vector2( -5, -25 ), Vector2( -5, 2 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=22]
+[sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 6.15157, 8 )
 
-[sub_resource type="RectangleShape2D" id=12]
+[sub_resource type="RectangleShape2D" id=13]
 extents = Vector2( 8, 10 )
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=14]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -265,7 +266,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=15]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -280,7 +281,7 @@ tracks/0/keys = {
 "values": [ 7 ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=16]
 length = 0.6
 loop = true
 step = 0.15
@@ -297,7 +298,7 @@ tracks/0/keys = {
 "values": [ 3, 4, 5, 6 ]
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=17]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -312,14 +313,14 @@ tracks/0/keys = {
 "values": [ 8 ]
 }
 
-[sub_resource type="RectangleShape2D" id=17]
+[sub_resource type="RectangleShape2D" id=18]
 extents = Vector2( 8.5, 11 )
 
-[sub_resource type="StyleBoxTexture" id=18]
+[sub_resource type="StyleBoxTexture" id=19]
 texture = ExtResource( 5 )
 region_rect = Rect2( 0, 0, 16, 16 )
 
-[sub_resource type="DynamicFont" id=19]
+[sub_resource type="DynamicFont" id=20]
 font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=21]
@@ -328,7 +329,7 @@ outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 6 )
 
-[sub_resource type="DynamicFont" id=20]
+[sub_resource type="DynamicFont" id=22]
 size = 55
 font_data = ExtResource( 6 )
 
@@ -406,26 +407,26 @@ anims/trick2 = SubResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Melee-Attack"]
 position = Vector2( 5, 0 )
-shape = SubResource( 22 )
+shape = SubResource( 12 )
 
 [node name="Hitbox" type="Area2D" parent="."]
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-shape = SubResource( 12 )
+shape = SubResource( 13 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Idle = SubResource( 13 )
-anims/Jump = SubResource( 14 )
-anims/Run = SubResource( 15 )
-anims/WallJump = SubResource( 16 )
+anims/Idle = SubResource( 14 )
+anims/Jump = SubResource( 15 )
+anims/Run = SubResource( 16 )
+anims/WallJump = SubResource( 17 )
 
 [node name="PickUp" type="Area2D" parent="."]
 visible = false
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickUp"]
-shape = SubResource( 17 )
+shape = SubResource( 18 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 visible = false
@@ -452,7 +453,7 @@ __meta__ = {
 margin_right = 50.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 18 )
+custom_styles/panel = SubResource( 19 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/1"]
 visible = false
@@ -468,7 +469,7 @@ scale = Vector2( 2.5, 2.5 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 19 )
+custom_fonts/font = SubResource( 20 )
 text = "0"
 align = 2
 valign = 1
@@ -481,7 +482,7 @@ margin_left = 54.0
 margin_right = 104.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 18 )
+custom_styles/panel = SubResource( 19 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/2"]
 visible = false
@@ -497,7 +498,7 @@ scale = Vector2( 2.5, 3.15 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 19 )
+custom_fonts/font = SubResource( 20 )
 align = 2
 valign = 1
 __meta__ = {
@@ -509,7 +510,7 @@ margin_left = 108.0
 margin_right = 158.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 18 )
+custom_styles/panel = SubResource( 19 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/3"]
 visible = false
@@ -525,7 +526,7 @@ scale = Vector2( 2.5, 2.5 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 19 )
+custom_fonts/font = SubResource( 20 )
 align = 2
 valign = 1
 __meta__ = {
@@ -537,7 +538,7 @@ margin_left = 162.0
 margin_right = 212.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 18 )
+custom_styles/panel = SubResource( 19 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/4"]
 visible = false
@@ -553,7 +554,7 @@ scale = Vector2( 2.5, 2.5 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 19 )
+custom_fonts/font = SubResource( 20 )
 align = 2
 valign = 1
 __meta__ = {
@@ -565,7 +566,7 @@ margin_top = 54.0
 margin_right = 50.0
 margin_bottom = 104.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 18 )
+custom_styles/panel = SubResource( 19 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/5"]
 visible = false
@@ -581,7 +582,7 @@ scale = Vector2( 2.5, 2.5 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 19 )
+custom_fonts/font = SubResource( 20 )
 align = 2
 valign = 1
 __meta__ = {
@@ -594,7 +595,7 @@ margin_top = 54.0
 margin_right = 104.0
 margin_bottom = 104.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 18 )
+custom_styles/panel = SubResource( 19 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/6"]
 visible = false
@@ -610,7 +611,7 @@ scale = Vector2( 2.5, 2.5 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 19 )
+custom_fonts/font = SubResource( 20 )
 align = 2
 valign = 1
 __meta__ = {
@@ -623,7 +624,7 @@ margin_top = 54.0
 margin_right = 158.0
 margin_bottom = 104.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 18 )
+custom_styles/panel = SubResource( 19 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/7"]
 visible = false
@@ -639,7 +640,7 @@ scale = Vector2( 2.5, 2.5 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 19 )
+custom_fonts/font = SubResource( 20 )
 align = 2
 valign = 1
 __meta__ = {
@@ -652,7 +653,7 @@ margin_top = 54.0
 margin_right = 212.0
 margin_bottom = 104.0
 rect_min_size = Vector2( 50, 50 )
-custom_styles/panel = SubResource( 18 )
+custom_styles/panel = SubResource( 19 )
 
 [node name="Selected" type="Sprite" parent="CanvasLayer/Inventory/8"]
 visible = false
@@ -668,7 +669,7 @@ scale = Vector2( 2.5, 2.5 )
 margin_top = 30.0
 margin_right = 50.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 19 )
+custom_fonts/font = SubResource( 20 )
 align = 2
 valign = 1
 __meta__ = {
@@ -733,7 +734,7 @@ margin_top = -24.0
 margin_right = 722.0
 margin_bottom = 135.0
 rect_scale = Vector2( 0.1, 0.1 )
-custom_fonts/font = SubResource( 20 )
+custom_fonts/font = SubResource( 22 )
 align = 1
 valign = 1
 __meta__ = {
@@ -787,9 +788,18 @@ position = Vector2( -0.39963, 0 )
 scale = Vector2( 0.171887, -0.25 )
 texture = ExtResource( 3 )
 
+[node name="DeadParticles" parent="." instance=ExtResource( 15 )]
+position = Vector2( -0.518478, 6.78994 )
+scale = Vector2( 0.8, 0.8 )
+emitting = false
+
+[node name="Timer" type="Timer" parent="DeadParticles"]
+wait_time = 1.5
+
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="area_exited" from="Hitbox" to="." method="_on_Hitbox_area_exited"]
 [connection signal="area_entered" from="PickUp" to="." method="PickUp_area_entered"]
 [connection signal="area_exited" from="PickUp" to="." method="PickUp_area_exited"]
 [connection signal="body_entered" from="PickUp" to="." method="PickUp_Body_Entered"]
 [connection signal="body_exited" from="PickUp" to="." method="PickUp_Body_Exited"]
+[connection signal="timeout" from="DeadParticles/Timer" to="." method="on_vite_finite"]

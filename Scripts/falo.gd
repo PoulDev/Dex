@@ -8,11 +8,6 @@ func _ready():
 func _on_Area2D_area_entered(area):
 	print(area.name)
 
-func _process(delta):
-	if int($Timer.time_left) == 0:
-		$Timer.stop()
-		$Sprite/Fire.emitting = false
-		$Sprite/Fire/Smoke.emitting = false
 
 func _on_Area2D_body_entered(body):
 	if $Sprite/Fire.emitting:
@@ -26,3 +21,8 @@ func _on_Area2D_body_entered(body):
 			Cotto.global_position = body.global_position
 			get_node("/root/Node").call_deferred("add_child", Cotto)
 			body.queue_free()
+
+
+func _on_Timer_timeout():
+	$Sprite/Fire.emitting = false
+	$Sprite/Fire/Smoke.emitting = false

@@ -21,7 +21,10 @@ func _ready():
 				add_child(child)
 				child.position = Vector2(Global.save["Entity"][entity]["x"], Global.save["Entity"][entity]["y"])
 			else:
-				var child = load("res://Scenes/" + entity.replace("1234567890", "") + ".tscn").instance()
+				for i in range(0, 9):
+					entity = entity.replace(str(i), "")
+				print(entity)
+				var child = load("res://Scenes/" + entity + ".tscn").instance()
 				add_child(child)
 				child.position = Vector2(Global.save["Entity"][entity]["x"], Global.save["Entity"][entity]["y"])
 			

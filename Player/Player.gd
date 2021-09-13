@@ -10,7 +10,8 @@ var GRAVITY = 10
 var jump_speed = -200
 var WallJump = 500
 var JumpWall = 10
-
+var gestione_particelle = 1
+var movimenti = true
 
 var stamina = 100
 var vita = 10
@@ -80,12 +81,14 @@ func _process(delta):
 	Global.save["Orario"]["minuto"] = Global.minuto
 	
 	Global._save()
-	if vita <= 0:
-		Global.save["player"]["x"] = 0
-		Global.save["player"]["y"] = 0
-		get_tree().reload_current_scene()
+	if vita == 0:
+		$DeadParticles/Timer.start()
+		movimenti = false
+		print("mlml")
+		vita = -1
 	
-	
+	if vita < -1:
+		vita = -1
 	$CanvasLayer/HealthBoxContainer.UpdateLife(vita)
 	$CanvasLayer/Stamina.value = stamina
 	select()
@@ -163,7 +166,7 @@ func _physics_process(delta):
 			drop_item(i)
 	
 	animation()
-	get_inputs()
+	if movimenti: get_inputs()
 	velocity.x = lerp(velocity.x, target_speed, 0.4)
 	
 	velocity.y += GRAVITY
@@ -483,3 +486,31 @@ func _on_Hitbox_area_entered(area):
 
 func _on_Hitbox_area_exited(area):
 	pass # Replace with function body.
+
+
+
+
+
+
+func on_vite_finite():
+	print(gestione_particelle)
+	if gestione_particelle == 1:
+		$DeadParticles.emitting = true
+		gestione_particelle = 2
+		$DeadParticles/Timer.start()
+	elif gestione_particelle == 2:
+		self.visible = false
+		gestione_particelle = 3
+		$DeadParticles/Timer.start()
+	elif gestione_particelle == 3:
+		$DeadParticles.emitting = false
+		gestione_particelle = 4
+		$DeadParticles/Timer.wait_time = 0.1
+		$DeadParticles/Timer.start()
+	elif gestione_particelle == 4:
+		Global.save["player"]["x"] = 0
+		Global.save["player"]["y"] = 0
+		$DeadParticles/Timer.stop()
+		$DeadParticles/Timer.wait_time = 1.5
+		var gestione_particelle = 1
+		get_tree().reload_current_scene()

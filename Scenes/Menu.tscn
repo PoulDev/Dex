@@ -123,6 +123,7 @@ texture_hover = SubResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="button_down" from="NewGame" to="." method="_on_NewGame_button_down"]
 [connection signal="button_down" from="Continue" to="." method="_on_Continue_button_down"]
 [connection signal="button_down" from="Exit" to="." method="_on_Exit_button_down"]
